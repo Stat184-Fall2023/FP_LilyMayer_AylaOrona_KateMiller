@@ -33,6 +33,16 @@ psuVBRoster <- read_html(
 View(psuVBRoster)
 ```
 
+```{r OSURosterTable}
+OSUVBRoster <- read_html(
+  x = "https://ohiostatebuckeyes.com/sports/womens-volleyball/roster"
+) %>%
+  html_elements(css = "table") %>%
+  html_table()
+View(OSUVBRoster)
+
+```
+
 ## Research Questions
 State your research questions and explain them.
 
