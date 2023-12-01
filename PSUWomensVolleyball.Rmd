@@ -5,8 +5,6 @@ date: "2023-11-29"
 output: html_document
 ---
 
-LALALALALALALALALALALAAL DEMO
-
 
 All code should be written according to a Style Guide of your choice. List this Style Guide as a code comment in your first code chunk.
 ```{r setup, include=FALSE}
@@ -31,6 +29,15 @@ psuVBRoster <- read_html(
   html_elements(css = "table") %>%
   html_table()
 View(psuVBRoster)
+```
+
+```{r OSURosterTable}
+osuVBRoster <- read_html(
+  x = "https://ohiostatebuckeyes.com/sports/womens-volleyball/roster"
+) %>%
+  html_elements(css = "table") %>%
+  html_table()
+View(osuVBRoster)
 ```
 
 ## Research Questions
