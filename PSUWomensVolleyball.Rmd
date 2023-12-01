@@ -5,13 +5,16 @@ date: "2023-11-29"
 output: html_document
 ---
 
-LALALALALALALALALALALAAL DEMO
-
-
 All code should be written according to a Style Guide of your choice. List this Style Guide as a code comment in your first code chunk.
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 # List Style Guide in this code chunk
+library(rvest)
+library(dplyr)
+library(ggplot2)
+library(knitr)
+library(kableExtra)
+library(stringr)
 ```
 
 ```{r espnTable}
@@ -30,7 +33,19 @@ psuVBRoster <- read_html(
 ) %>%
   html_elements(css = "table") %>%
   html_table()
+psuVBRoster <- bind_cols(psuVBRoster[[3]])
 View(psuVBRoster)
+```
+
+```{r PSURosterStatsTable}
+psuRosterStats <- read_html(
+  x = 'https://gopsusports.com/sports/womens-volleyball/stats'
+) %>%
+  html_elements(css = 'table') %>%
+  html_table()
+psuRosterOffensive <- bind_cols(psuRosterStats[[2]])
+
+View(psuRosterOffensive)
 ```
 
 ## Research Questions
