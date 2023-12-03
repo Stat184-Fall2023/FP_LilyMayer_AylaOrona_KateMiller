@@ -56,7 +56,6 @@ psuVBRoster <- psuVBRoster %>%
 View(psuVBRoster)
 ```
 
-<<<<<<< HEAD
 ```{r PSURosterStatsTable}
 psuRosterStats <- read_html(
   x = 'https://gopsusports.com/sports/womens-volleyball/stats'
@@ -65,17 +64,14 @@ psuRosterStats <- read_html(
   html_table()
 #harvests the player data from the gopsusports website
 
-<<<<<<< HEAD
-View(psuRosterOffensive)
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
 psuRosterOffensiveHeading <- bind_cols(psuRosterStats[[2]][1, ])
 #saves the column headers as a single row
 
 psuRosterOffensiveStats <- bind_cols(psuRosterStats[[2]][2:nrow(psuRosterStats[[2]]) , ])
 #saves the rest of the player data as a dataframe
 
+
+View(psuRosterOffensiveStats)
 colnames(psuRosterOffensiveStats) <- c(psuRosterOffensiveHeading[1, ])
 #inserts column headers into player data
 
@@ -119,9 +115,8 @@ psuOffensive <- inner_join(
 #joins the roster data into the offensive statistics
 
 View(psuOffensive)
->>>>>>> parent of 08184f6 (Revert "Clean roster dataframe and stats dataframe, then joins them")
 ```
-=======
+
 ```{r OSURosterTable}
 osuVBRoster <- read_html(
   x = "https://ohiostatebuckeyes.com/sports/womens-volleyball/roster"
@@ -129,10 +124,7 @@ osuVBRoster <- read_html(
   html_elements(css = "table") %>%
   html_table()
 View(osuVBRoster)
-=======
->>>>>>> parent of 65d7c53 (Clean roster dataframe and stats dataframe, then joins them)
-=======
->>>>>>> parent of 65d7c53 (Clean roster dataframe and stats dataframe, then joins them)
+
 ```
 
 ## Research Questions
