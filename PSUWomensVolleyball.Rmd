@@ -50,7 +50,6 @@ psuRosterOffensive <- bind_cols(psuRosterStats[[2]])
 
 View(psuRosterOffensive)
 <<<<<<< HEAD
-<<<<<<< HEAD
 ```
 =======
 ```{r OSURosterTable}
@@ -60,8 +59,6 @@ osuVBRoster <- read_html(
   html_elements(css = "table") %>%
   html_table()
 View(osuVBRoster)
-=======
->>>>>>> parent of 65d7c53 (Clean roster dataframe and stats dataframe, then joins them)
 =======
 >>>>>>> parent of 65d7c53 (Clean roster dataframe and stats dataframe, then joins them)
 ```
