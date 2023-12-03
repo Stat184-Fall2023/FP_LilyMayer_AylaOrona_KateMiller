@@ -17,6 +17,7 @@ library(ggplot2)
 library(knitr)
 library(kableExtra)
 library(stringr)
+library(tidyr)
 ```
 
 ```{r espnTable}
@@ -36,6 +37,22 @@ psuVBRoster <- read_html(
   html_elements(css = "table") %>%
   html_table()
 psuVBRoster <- bind_cols(psuVBRoster[[3]])
+#saves correct data frame from harvest
+
+psuVBRoster <- psuVBRoster %>%
+  tidyr::separate_wider_delim(
+    cols = `Ht.`,
+    delim = '-',
+    names = c('Feet', 'Inches')
+  ) %>%
+  #separates height column into feet and inches columns
+  mutate_at(vars('Feet', 'Inches'), as.numeric) %>%
+  #turns feet and inches into numeric types
+  mutate('Height (in.)' = Inches + (Feet * 12)) %>%
+  #creates a height column in inches
+  select('#', 'Full Name', 'Pos.', 'Elig.', 'Height (in.)', 'Hometown / High School')
+#reorders column and removes feet and inches columns
+
 View(psuVBRoster)
 ```
 
@@ -46,11 +63,63 @@ psuRosterStats <- read_html(
 ) %>%
   html_elements(css = 'table') %>%
   html_table()
-psuRosterOffensive <- bind_cols(psuRosterStats[[2]])
+#harvests the player data from the gopsusports website
 
+<<<<<<< HEAD
 View(psuRosterOffensive)
 <<<<<<< HEAD
 <<<<<<< HEAD
+=======
+psuRosterOffensiveHeading <- bind_cols(psuRosterStats[[2]][1, ])
+#saves the column headers as a single row
+
+psuRosterOffensiveStats <- bind_cols(psuRosterStats[[2]][2:nrow(psuRosterStats[[2]]) , ])
+#saves the rest of the player data as a dataframe
+
+colnames(psuRosterOffensiveStats) <- c(psuRosterOffensiveHeading[1, ])
+#inserts column headers into player data
+
+psuOffensive <- psuRosterOffensiveStats %>%
+  select(!contains('Link'))
+#removes the 'Bio Link' column
+
+psuOffensive <- psuOffensive[1:17, ]
+#removes the 'Total' and 'Opponent' rows
+
+psuOffensive$Player <- str_sub(psuOffensive$Player, end = -25)
+#removes the repeated names from the player column
+
+psuOffensive <- psuOffensive %>%
+  tidyr::separate_wider_delim(
+    cols = Player,
+    delim = ',',
+    names = c('Last', 'First')
+  ) %>%
+  #Separates the player names into separate columns for first and last name
+  mutate(
+    'Player' = paste(First, Last, sep=' '), 
+    .before = First
+  ) %>%
+  #concatenates the first and last names together
+  mutate(
+    `Player` = stringr::str_squish(`Player`)) %>%
+  select(!'First') %>%
+  select(!'Last')
+  #removes excess whitespace and removes individual name columns
+
+psuOffensive <- psuOffensive %>%
+  mutate_at(vars(!Player), as.numeric)
+#turns all columns except Player into numeric types
+
+psuOffensive <- inner_join(
+  x = psuOffensive, 
+  y = psuVBRoster, 
+  by = join_by('Player' == 'Full Name', '#' == '#')
+)
+#joins the roster data into the offensive statistics
+
+View(psuOffensive)
+>>>>>>> parent of 08184f6 (Revert "Clean roster dataframe and stats dataframe, then joins them")
 ```
 =======
 ```{r OSURosterTable}
