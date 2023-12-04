@@ -5,7 +5,12 @@ date: "2023-11-29"
 output: html_document
 ---
 
+<<<<<<< Updated upstream
 
+=======
+=======
+CHANGE FOR MAIN
+>>>>>>> Stashed changes
 All code should be written according to a Style Guide of your choice. List this Style Guide as a code comment in your first code chunk.
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
