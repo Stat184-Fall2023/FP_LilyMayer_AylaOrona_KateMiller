@@ -116,7 +116,7 @@ View(osuVBRoster)
 ```
 
 ## Research Questions
-Still deciding...
+
 based on summary table of PSU team and visualizations
 
 ## Read in data and perform necessary wrangling and cleaning
