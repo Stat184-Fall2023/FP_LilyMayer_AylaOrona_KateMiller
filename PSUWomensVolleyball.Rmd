@@ -9,6 +9,13 @@ All code should be written according to a Style Guide of your choice. List this 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 # List Style Guide in this code chunk
+library(rvest)
+library(dplyr)
+library(ggplot2)
+library(knitr)
+library(kableExtra)
+library(stringr)
+library(tidyr)
 ```
 
 ```{r PSURosterTable}
@@ -17,7 +24,85 @@ psuVBRoster <- read_html(
 ) %>%
   html_elements(css = "table") %>%
   html_table()
+psuVBRoster <- bind_cols(psuVBRoster[[3]])
+#saves correct data frame from harvest
+
+psuVBRoster <- psuVBRoster %>%
+  tidyr::separate_wider_delim(
+    cols = `Ht.`,
+    delim = '-',
+    names = c('Feet', 'Inches')
+  ) %>%
+  #separates height column into feet and inches columns
+  mutate_at(vars('Feet', 'Inches'), as.numeric) %>%
+  #turns feet and inches into numeric types
+  mutate('Height (in.)' = Inches + (Feet * 12)) %>%
+  #creates a height column in inches
+  select('#', 'Full Name', 'Pos.', 'Elig.', 'Height (in.)', 'Hometown / High School')
+#reorders column and removes feet and inches columns
+
 View(psuVBRoster)
+```
+
+```{r PSURosterStatsTable}
+psuRosterStats <- read_html(
+  x = 'https://gopsusports.com/sports/womens-volleyball/stats'
+) %>%
+  html_elements(css = 'table') %>%
+  html_table()
+#harvests the player data from the gopsusports website
+
+psuRosterOffensiveHeading <- bind_cols(psuRosterStats[[2]][1, ])
+#saves the column headers as a single row
+
+psuRosterOffensiveStats <- bind_cols(psuRosterStats[[2]][2:nrow(psuRosterStats[[2]]) , ])
+#saves the rest of the player data as a dataframe
+
+
+View(psuRosterOffensiveStats)
+colnames(psuRosterOffensiveStats) <- c(psuRosterOffensiveHeading[1, ])
+#inserts column headers into player data
+
+psuOffensive <- psuRosterOffensiveStats %>%
+  select(!contains('Link'))
+#removes the 'Bio Link' column
+
+psuOffensive <- psuOffensive[1:17, ]
+#removes the 'Total' and 'Opponent' rows
+
+psuOffensive$Player <- str_sub(psuOffensive$Player, end = -25)
+#removes the repeated names from the player column
+
+psuOffensive <- psuOffensive %>%
+  tidyr::separate_wider_delim(
+    cols = Player,
+    delim = ',',
+    names = c('Last', 'First')
+  ) %>%
+  #Separates the player names into separate columns for first and last name
+  mutate(
+    'Player' = paste(First, Last, sep=' '), 
+    .before = First
+  ) %>%
+  #concatenates the first and last names together
+  mutate(
+    `Player` = stringr::str_squish(`Player`)) %>%
+  select(!'First') %>%
+  select(!'Last')
+  #removes excess whitespace and removes individual name columns
+
+psuOffensive <- psuOffensive %>%
+  mutate_at(vars(!Player), as.numeric)
+#turns all columns except Player into numeric types
+
+psuOffensive <- inner_join(
+  x = psuOffensive, 
+  y = psuVBRoster, 
+  by = join_by('Player' == 'Full Name', '#' == '#')
+)
+#joins the roster data into the offensive statistics
+
+View(psuOffensive)
 ```
 
 ```{r OSURosterTable}
@@ -27,15 +112,25 @@ osuVBRoster <- read_html(
   html_elements(css = "table") %>%
   html_table()
 View(osuVBRoster)
+
 ```
 
 ## Research Questions
-State your research questions and explain them.
+Still deciding...
+based on summary table of PSU team and visualizations
 
 ## Read in data and perform necessary wrangling and cleaning
 Describe your data sources (where they come from, what was their original purpose, who/what comprise the cases in each).
+Notes:
+- PSU V. Ohio State Portion: We gathered both the Penn state's and Ohio State's women volleyball team stats. We googled each roster of both teams and merged them together. The PSU stat table did not have the position of each player, so to match each player with their position, we joined a PSU Roster that contained players and their position with the PSU Stat table. We then compared Penn state and Ohio State's stats.
+
+- Only PSU Portion: We googled the roster and stats of the Penn state's women volleyball team. Because the PSU stat roster did not have the position of each player, we merged the stats table with the team roster containing players position. We then compared data within the PSU team.
 
 Describe what attributes you'll focus your analysis on (mention if they are part of your data sets or if you created them out of your data sets).
+
+-service ace per set vs service error per set. To get rate of errors: SE column divided by SP column.
+- Summary Table: average height, kills, digs, etc. possibly for each position or as a whole
+- Visualizations: stats of each year for each player(bar chart, histogram), PSU v. OSU, etc.
 
 ## Conduct Exploratory Data Analysis
 All outputs should be accompanied by narrative text to explain what the reader should be seeing.
