@@ -5,21 +5,10 @@ date: "2023-11-29"
 output: html_document
 ---
 
-
 All code should be written according to a Style Guide of your choice. List this Style Guide as a code comment in your first code chunk.
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 # List Style Guide in this code chunk
-```
-
-```{r espnTable}
-espnPSUTables <- read_html(
-  x = "link"
-  # I haven't found any ESPN related items, so we may have to rethink where we get data from.
-) %>%
-  html_elements(css = "table") %>%
-  html_table()
-View(espnPSUTables)
 ```
 
 ```{r PSURosterTable}
@@ -57,3 +46,4 @@ Data visualizations should show a variety of your skills and geometries.
 Create at least one visual table (not a display of raw data) that assists both the team and readers in understanding the data.
 
 Have narrative text explaining every data visualization and table as well as setting a framework.
+
