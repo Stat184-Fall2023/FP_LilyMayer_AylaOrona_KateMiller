@@ -133,6 +133,26 @@ Describe what attributes you'll focus your analysis on (mention if they are part
 
 ## Conduct Exploratory Data Analysis
 - points vs. height (scatter)- Ayla
+```{r PointsVHeight, echo = FALSE}
+
+ggplot(psuOffensive) +
+  aes(x = `Height (in.)`, y = PTS) +
+  geom_point(shape = "circle", size = 1.8, colour = "#005BAC") +
+  labs(
+    x = "Height (in.)",
+    y = "Points",
+    title = "Total Points Vs. Player Height"
+  ) +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(size = 16L),
+    axis.title.y = element_text(size = 13L),
+    axis.title.x = element_text(size = 13L)
+  )
+
+```
+The visualization shown above is the comparison of each players height versus their total amount of points for this season. As seen in the graph, the player that has scored the most amount of points this season is 73 in (6'2 ft) with points ranging in the 500s. The players with the most amount of points range from 73 in (6'2 ft) to 75 in (6'4 ft)....
+
 - average sets per year in terms of school year(bar chart)- Kate
 - Summary Table: average of specific stats for each position- Kate
 
