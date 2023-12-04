@@ -16,6 +16,8 @@ library(knitr)
 library(kableExtra)
 library(stringr)
 library(tidyr)
+library(esquisse)
+library(janitor)
 ```
 
 ```{r PSURosterTable}
@@ -112,6 +114,56 @@ osuVBRoster <- read_html(
   html_elements(css = "table") %>%
   html_table()
 View(osuVBRoster)
+
+```
+
+
+Average sets per year in terms of school year (bar chart)
+Summary Table: Average of specific stats for each position
+
+```{r averageSetsPlayedPerSchoolYearDataTable}
+setsSummaryTable <- psuOffensive %>%
+  group_by(Elig.) %>%
+  summarize(
+  count = n(),
+  minimum = min(SP),
+  firstQuintile = quantile(SP, 0.25),
+  median = median(SP),
+  thirdQuintile = quantile(SP, 0.75),
+  maximum = max(SP),
+  mean = mean(SP),
+  standardDeviation = sd(SP)
+    )
+
+setsSummaryTable2 <- setsSummaryTable %>%
+  mutate(
+    across(where(is.numeric), round, 2)
+    )
+
+setsSummaryTable2 %>%
+  kable(
+  col.names = c("Grade","Count", "Minimum", "First Quartile", "Median", "Third Quartile", "Maximum", "Arithmetic Mean", "Arithmetic Standard Deviation"),
+  caption = "Summary Statistics of Average Sets Played Per Grade",
+  booktabs = TRUE,
+  align = c("l", rep("c", 6))
+  ) %>%
+  kableExtra::kable_classic()
+
+View(setsSummaryTable2)
+# Mutate function, freshman is first year, etc. 
+```
+
+```{r renamingEligibilityRows}
+
+
+```
+
+```{r averageSetsPlayedPerSchoolYearDataVisualization}
+# esquisse::esquisser(data = setsSummaryTable2, viewer = 'browser')
+# Group by position on the summary table
+```
+
+```{r averageStatsPerPositionSummaryTable}
 
 ```
 
