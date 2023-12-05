@@ -4,11 +4,33 @@ author: "Lily Mayer, Ayla Orona, Kate Miller"
 date: "2023-11-29"
 output: html_document
 ---
+## Introduction
+
+The following document aims to provide details on Penn State Women's Volleyball data. Each variable is based on specific player.
+
+The following column headings were collected from the Penn State Women's Volleyball website and may be used in the data frames, tables, and visualizations.
+
+Player - Penn State Women's Volleyball player first and last name
+SP - Sets played
+MP -
+MS - 
+PTS - Total points earned for the 2023 season
+PTS/S - 
+K - Total number of kills
+K/S - 
+E -
+TA -
+PCT - 
+A - 
+A/S - 
+SA -
+SA/S - 
+SE - 
 
 
 All code should be written according to a Style Guide of your choice. List this Style Guide as a code comment in your first code chunk.
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = FALSE)
 # List Style Guide in this code chunk
 library(rvest)
 library(ggplot2)
@@ -18,6 +40,8 @@ library(stringr)
 library(tidyr)
 library(pdftools)
 library(tidyverse)
+library(esquisse)
+library(janitor)
 ```
 
 ```{r PSURosterTable}
@@ -215,8 +239,127 @@ View(psuAndOsu)
 
 ```
 
+
+Average sets per year in terms of school year (bar chart)
+Summary Table: Average of specific stats for each position
+
+```{r averageSetsPlayedPerSchoolYearDataTable}
+setsSummaryTable <- psuOffensive %>%
+  # Creates a summary table based on the wrangled and tidied data
+  # from the previous code chunk.
+  group_by(Elig.) %>%
+  # We are grouping by eligibility (grade), meaning that the summary
+  # statistics will be given for each grade.
+  summarize(
+  count = n(),
+  minimum = min(SP),
+  # Since we are looking specificially at the data for sets played, we select
+  # the variable "SP" for all the statistics.
+  firstQuintile = quantile(SP, 0.25),
+  median = median(SP),
+  thirdQuintile = quantile(SP, 0.75),
+  maximum = max(SP),
+  mean = mean(SP),
+  standardDeviation = sd(SP)
+    )
+
+setsSummaryTable2 <- setsSummaryTable %>%
+  mutate(
+    across(where(is.numeric), round, 2)
+    )
+  # This section utilizes the mutate function to round any variable that
+  # is a number to 2 decimal places.
+
+setsSummaryTable2 %>%
+  kable(
+  col.names = c("Grade","Count", "Minimum", "First Quartile", "Median", "Third Quartile", "Maximum", "Arithmetic Mean", "Arithmetic Standard Deviation"),
+  # Changes the column names to those listed above.
+  caption = "Summary Statistics of Average Sets Played Per Grade",
+  # Changes the title of the summary table.
+  booktabs = TRUE,
+  align = c("l", rep("c", 6))
+  ) %>%
+  kableExtra::kable_classic()
+  # This section utilizes the kableExtra package to create a clear summary
+  # table for the viewer to look at.
+
+View(setsSummaryTable2)
+# Mutate function, freshman is first year, etc. 
+```
+The summary table shown above provides the 5 number summary statistics for number of sets played based on grade (year in school). It also displays the amount of players in each grade, as well as the mean and standard deviation for the number of sets played in each grade. From the summary table, we can see that the freshman had the lowest number of sets played, at 2 sets. The sophomores and seniors had the same maximum number of sets played at 116, though the seniors had a higher mean of total sets played. We can also see that the seniors have the greatest number of starters.
+
+```{r renamingEligibilityRows}
+
+
+
+```
+
+```{r averageSetsPlayedPerSchoolYearDataVisualization}
+
+ggplot(setsSummaryTable2) +
+  # Utilizes ggplot to create a data visualization based on the 
+  # summary table created previously.
+  aes(x = Elig., y = mean, group = count) +
+  # Elig. (grade) will be on the horizontal axis, mean will be on the 
+  # vertical axis, and the data will overall be grouped by count.
+  geom_col(fill = "#3F567E") +
+  # geom_col will display a bar chart.
+  labs(
+    x = "Player Grade (Year)",
+    y = "Mean Sets Played",
+    title = "Penn State Women's Volleyball Average Number of Sets Played Per Grade (2023 Season)"
+  # Sets the axes and title of the data visualization.
+  ) +
+  theme_minimal()
+
+```
+From this data visualization, the viewer can see that the mean number of sets played was lowest for the freshman compared to the other class groups. The mean number of sets played was highest for the seniors, meaning that on average, the seniors played the most sets overall. An important item to note is that the mean number of sets played is higher for the sophomores than it is for the juniors, even though the juniors are older. In this case, the juniors don't play as much as the sophomores, on average, showing that the volleyball team does not choose who plays based on seniority.
+
+```{r averageStatsPerPositionSummaryTable}
+
+setsSummaryTable <- psuOffensive %>%
+  # Creates a summary table based on the wrangled and tidied data with object
+  # name "psuOffensive" from a previous code chunk.
+  group_by(Pos.) %>%
+  # We are grouping by position, meaning that the summary
+  # statistics will be given for each grade.
+  summarize(
+  count = n(),
+  minimum = min(SP),
+  firstQuintile = quantile(SP, 0.25),
+  median = median(SP),
+  thirdQuintile = quantile(SP, 0.75),
+  maximum = max(SP),
+  mean = mean(SP),
+  standardDeviation = sd(SP)
+    )
+
+setsSummaryTable2 <- setsSummaryTable %>%
+  mutate(
+    across(where(is.numeric), round, 2)
+    )
+  # This section utilizes the mutate function to round any variable that
+  # is a number to 2 decimal places.
+
+setsSummaryTable2 %>%
+  kable(
+  col.names = c("Position","Count", "Minimum", "First Quartile", "Median", "Third Quartile", "Maximum", "Arithmetic Mean", "Arithmetic Standard Deviation"),
+  # Changes the column names to those listed above.
+  caption = "Summary Statistics of Average Sets Played Per Grade",
+  # Changes the title of the summary table.
+  booktabs = TRUE,
+  align = c("l", rep("c", 6))
+  ) %>%
+  kableExtra::kable_classic()
+  # This section utilizes the kableExtra package to create a clear summary
+  # table for the viewer to look at.
+
+View(setsSummaryTable2)
+
+```
+
 ## Research Questions
-Still deciding...
+
 based on summary table of PSU team and visualizations
 
 ## Read in data and perform necessary wrangling and cleaning
@@ -229,10 +372,34 @@ Notes:
 Describe what attributes you'll focus your analysis on (mention if they are part of your data sets or if you created them out of your data sets).
 
 -service ace per set vs service error per set. To get rate of errors: SE column divided by SP column.
-- Summary Table: average height, kills, digs, etc. possibly for each position or as a whole
 - Visualizations: stats of each year for each player(bar chart, histogram), PSU v. OSU, etc.
 
 ## Conduct Exploratory Data Analysis
+- points vs. height (scatter)- Ayla
+```{r PointsVHeight, echo = FALSE}
+
+ggplot(psuOffensive) +
+  aes(x = `Height (in.)`, y = PTS) +
+  geom_point(shape = "circle", size = 1.8, colour = "#005BAC") +
+  labs(
+    x = "Height (in.)",
+    y = "Points",
+    title = "Total Points Vs. Player Height"
+  ) +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(size = 16L),
+    axis.title.y = element_text(size = 13L),
+    axis.title.x = element_text(size = 13L)
+  )
+
+```
+The visualization shown above is the comparison of each players height versus their total amount of points for this season. As seen in the graph, the player that has scored the most amount of points this season is 73 in (6'2 ft) with points ranging in the 500s. The players with the most amount of points range from 73 in (6'2 ft) to 75 in (6'4 ft)....
+
+- average sets per year in terms of school year(bar chart)- Kate
+- Summary Table: average of specific stats for each position- Kate
+
+
 All outputs should be accompanied by narrative text to explain what the reader should be seeing.
 
 Create multiple data visualizations that assist both the team and readers in understanding the data.
@@ -241,3 +408,4 @@ Data visualizations should show a variety of your skills and geometries.
 Create at least one visual table (not a display of raw data) that assists both the team and readers in understanding the data.
 
 Have narrative text explaining every data visualization and table as well as setting a framework.
+
