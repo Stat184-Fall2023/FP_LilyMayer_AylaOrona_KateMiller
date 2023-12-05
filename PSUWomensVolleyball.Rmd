@@ -49,12 +49,13 @@ All code should be written according to a Style Guide of your choice. List this 
 knitr::opts_chunk$set(echo = FALSE)
 # List Style Guide in this code chunk
 library(rvest)
-library(dplyr)
 library(ggplot2)
 library(knitr)
 library(kableExtra)
 library(stringr)
 library(tidyr)
+library(pdftools)
+library(tidyverse)
 library(esquisse)
 library(janitor)
 ```
@@ -82,7 +83,6 @@ psuVBRoster <- psuVBRoster %>%
   select('#', 'Full Name', 'Pos.', 'Elig.', 'Height (in.)', 'Hometown / High School')
 #reorders column and removes feet and inches columns
 
-View(psuVBRoster)
 ```
 
 ```{r PSURosterStatsTable}
@@ -122,7 +122,7 @@ psuOffensive <- psuOffensive %>%
   ) %>%
   #Separates the player names into separate columns for first and last name
   mutate(
-    'Player' = paste(First, Last, sep=' '), 
+    'Player' = paste(First, Last, sep = ' '), 
     .before = First
   ) %>%
   #concatenates the first and last names together
@@ -136,23 +136,117 @@ psuOffensive <- psuOffensive %>%
   mutate_at(vars(!Player), as.numeric)
 #turns all columns except Player into numeric types
 
-psuOffensive <- inner_join(
+psuOffensiveRoster <- inner_join(
   x = psuOffensive, 
   y = psuVBRoster, 
   by = join_by('Player' == 'Full Name', '#' == '#')
 )
 #joins the roster data into the offensive statistics
 
-View(psuOffensive)
+psuSepPos <- separate_longer_delim(psuOffensiveRoster, 'Pos.', delim = '/')
+#creates a second row for players with two positions so each row has only one position
+
 ```
 
-```{r OSURosterTable}
-osuVBRoster <- read_html(
-  x = "https://ohiostatebuckeyes.com/sports/womens-volleyball/roster"
-) %>%
-  html_elements(css = "table") %>%
-  html_table()
-View(osuVBRoster)
+```{r OSURosterStatsTable}
+url <- c('https://s3.us-east-2.amazonaws.com/sidearm.nextgen.sites/ohiostatebuckeyes.com/stats/wvb/2023/pdf/cume.pdf')
+raw_text <- pdf_text(url)
+
+#the following code was found on the internet to harvest the osu data from a pdf
+clean_table <- function(raw) {
+  raw <- map(raw, ~ str_split(.x, '\\n') %>% unlist())
+  raw <- reduce(raw, c)
+  
+  table_start <- stringr::str_which(tolower(raw), '#')
+  table_end <- stringr::str_which(tolower(raw), '31')
+  table_end <- table_end[min(which(table_end > table_start))]
+  
+  table <- raw[(table_start):(table_end)]
+  table <- str_replace_all(table, '\\s{2,}', '|')
+  text_con <- textConnection(table)
+  data_table <- read.csv(text_con, sep = '|')
+  
+  data_table
+}
+osuRawStats <- map_df(raw_text, clean_table)
+#the osu data is very dirty, with some columns holding data from more than one column
+
+osuFixOne <- osuRawStats[1, ] %>%
+  #the first row has the name and 'SP' in the 'Player' column
+  mutate('missing' = paste(Player))
+#creates a new column to duplicate the broken cell
+osuFixOne$missing <- str_sub(osuFixOne$missing, start = 22)
+#removes the name and leaves just the number
+osuFixOne$Player <- str_sub(osuFixOne$Player, end = -4)
+#removes the number and leaves just the name
+osuFixOne <- osuFixOne %>%
+  select(!'PTS')
+#removes the 'PTS' column
+colnames(osuFixOne) <- c('#', 'Player', 'K', 'K.S', 'E', 'TA', 'Pct', 'A', 'A.S', 'SA', 'SE', 'SA.S', 'RE', 'DIG', 'DIG.S', 'BS', 'BA', 'BLK', 'BLK.S', 'BE', 'BHE', 'PTS', 'SP')
+#shifts the column headers to reflect the correct data
+osuFixOne <- osuFixOne %>%
+  select('#', 'Player', 'SP', 'K', 'K.S', 'E', 'TA', 'Pct', 'A', 'A.S', 'SA', 'SE', 'SA.S', 'RE', 'DIG', 'DIG.S', 'BS', 'BA', 'BLK', 'BLK.S', 'BE', 'BHE', 'PTS')
+#changes the order of the columns to the original order
+
+osuFixOthers <- osuRawStats[7:12, ] %>%
+#rows 7 to 12 include both player number and name in the 'X.' column
+  mutate('missing' = paste(X.))
+#copies the broken cell into a new column
+osuFixOthers$missing <- str_sub(osuFixOthers$missing, start = 4)
+#removes the number
+osuFixOthers$X. <- str_sub(osuFixOthers$X., end = 3)
+#removes the name
+osuFixOthers <- osuFixOthers %>%
+  select(!'PTS')
+#removes the 'PTS' column
+colnames(osuFixOthers) <- c('#', 'SP', 'K', 'K.S', 'E', 'TA', 'Pct', 'A', 'A.S', 'SA', 'SE', 'SA.S', 'RE', 'DIG', 'DIG.S', 'BS', 'BA', 'BLK', 'BLK.S', 'BE', 'BHE', 'PTS', 'Player')
+#shifts the column names to reflect the correct data
+
+
+osuGoodRows <- osuRawStats[2:6, ] %>%
+  #selects the rows which were formatted correctly
+  rename('#' = 'X.')
+#changes the name of the player number column
+
+osuStats <- rbind(osuFixOne, osuGoodRows, osuFixOthers)
+#vertically joins the osu data back together
+
+osuStats <- osuStats %>%
+  tidyr::separate_wider_delim(
+    cols = Player,
+    delim = ',',
+    names = c('Last', 'First')
+  ) %>%
+  #Separates the player names into separate columns for first and last name
+  mutate(
+    'Player' = paste(First, Last, sep = ' '), 
+    .before = First
+  ) %>%
+  #concatenates the first and last names together
+  mutate(
+    `Player` = stringr::str_squish(`Player`)) %>%
+  select(!'First') %>%
+  select(!'Last') %>%
+  #removes the first and last name columns
+  mutate_at(vars(!Player), as.numeric)
+#saves all columns except for Player as a numeric type
+
+osuJoin <- osuStats %>%
+  select('#', 'Player', 'SP', 'K', 'K.S', 'E', 'TA', 'Pct', 'A', 'A.S', 'SA', 'SE', 'SA.S', 'PTS') %>%
+  #selects the columns which are in common with the psu data
+  mutate('School' = 'OSU')
+#adds a column to save the school of each player
+colnames(osuJoin) <- c('#', 'Player', 'SP', 'K', 'K/S', 'E', 'TA', 'PCT', 'A', 'A/S', 'SA', 'SE', 'SA/S', 'PTS', 'School')
+#changes the names of the columns to match the psu data
+
+psuJoin <- psuOffensive %>%
+  select('#', 'Player', 'SP', 'K', 'K/S', 'E', 'TA', 'PCT', 'A', 'A/S', 'SA', 'SE', 'SA/S', 'PTS') %>%
+  #selects the columns which are in common with the osu data
+  mutate('School' = 'PSU')
+#adds a column to save the school of each player
+  
+psuAndOsu <- rbind(psuJoin, osuJoin)
+#vertically joins the psu and osu data together
 
 ```
 
@@ -161,7 +255,7 @@ Average sets per year in terms of school year (bar chart)
 Summary Table: Average of specific stats for each position
 
 ```{r averageSetsPlayedPerSchoolYearDataTable}
-setsSummaryTable <- psuOffensive %>%
+setsSummaryTable <- psuOffensiveRoster %>%
   # Creates a summary table based on the wrangled and tidied data
   # from the previous code chunk.
   group_by(Elig.) %>%
@@ -234,7 +328,7 @@ From this data visualization, the viewer can see that the mean number of sets pl
 
 ```{r averageStatsPerPositionSummaryTable}
 
-setsSummaryTable <- psuOffensive %>%
+setsSummaryTable <- psuOffensiveRoster %>%
   # Creates a summary table based on the wrangled and tidied data with object
   # name "psuOffensive" from a previous code chunk.
   group_by(Pos.) %>%
@@ -295,7 +389,7 @@ Describe what attributes you'll focus your analysis on (mention if they are part
 - points vs. height (scatter)- Ayla
 ```{r PointsVHeight, echo = FALSE}
 
-ggplot(psuOffensive) +
+ggplot(psuOffensiveRoster) +
   aes(x = `Height (in.)`, y = PTS) +
   geom_point(shape = "circle", size = 1.8, colour = "#005BAC") +
   labs(
