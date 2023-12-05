@@ -4,10 +4,33 @@ author: "Lily Mayer, Ayla Orona, Kate Miller"
 date: "2023-11-29"
 output: html_document
 ---
+## Introduction
+
+The following document aims to provide details on Penn State Women's Volleyball data. Each variable is based on specific player.
+
+The following column headings were collected from the Penn State Women's Volleyball website and may be used in the data frames, tables, and visualizations.
+
+Player - Penn State Women's Volleyball player first and last name
+SP - Sets played
+MP -
+MS - 
+PTS - Total points earned for the 2023 season
+PTS/S - 
+K - Total number of kills
+K/S - 
+E -
+TA -
+PCT - 
+A - 
+A/S - 
+SA -
+SA/S - 
+SE - 
+
 
 All code should be written according to a Style Guide of your choice. List this Style Guide as a code comment in your first code chunk.
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = FALSE)
 # List Style Guide in this code chunk
 library(rvest)
 library(dplyr)
@@ -123,7 +146,84 @@ Summary Table: Average of specific stats for each position
 
 ```{r averageSetsPlayedPerSchoolYearDataTable}
 setsSummaryTable <- psuOffensive %>%
+  # Creates a summary table based on the wrangled and tidied data
+  # from the previous code chunk.
   group_by(Elig.) %>%
+  # We are grouping by eligibility (grade), meaning that the summary
+  # statistics will be given for each grade.
+  summarize(
+  count = n(),
+  minimum = min(SP),
+  # Since we are looking specificially at the data for sets played, we select
+  # the variable "SP" for all the statistics.
+  firstQuintile = quantile(SP, 0.25),
+  median = median(SP),
+  thirdQuintile = quantile(SP, 0.75),
+  maximum = max(SP),
+  mean = mean(SP),
+  standardDeviation = sd(SP)
+    )
+
+setsSummaryTable2 <- setsSummaryTable %>%
+  mutate(
+    across(where(is.numeric), round, 2)
+    )
+  # This section utilizes the mutate function to round any variable that
+  # is a number to 2 decimal places.
+
+setsSummaryTable2 %>%
+  kable(
+  col.names = c("Grade","Count", "Minimum", "First Quartile", "Median", "Third Quartile", "Maximum", "Arithmetic Mean", "Arithmetic Standard Deviation"),
+  # Changes the column names to those listed above.
+  caption = "Summary Statistics of Average Sets Played Per Grade",
+  # Changes the title of the summary table.
+  booktabs = TRUE,
+  align = c("l", rep("c", 6))
+  ) %>%
+  kableExtra::kable_classic()
+  # This section utilizes the kableExtra package to create a clear summary
+  # table for the viewer to look at.
+
+View(setsSummaryTable2)
+# Mutate function, freshman is first year, etc. 
+```
+The summary table shown above provides the 5 number summary statistics for number of sets played based on grade (year in school). It also displays the amount of players in each grade, as well as the mean and standard deviation for the number of sets played in each grade. From the summary table, we can see that the freshman had the lowest number of sets played, at 2 sets. The sophomores and seniors had the same maximum number of sets played at 116, though the seniors had a higher mean of total sets played. We can also see that the seniors have the greatest number of starters.
+
+```{r renamingEligibilityRows}
+
+
+
+```
+
+```{r averageSetsPlayedPerSchoolYearDataVisualization}
+
+ggplot(setsSummaryTable2) +
+  # Utilizes ggplot to create a data visualization based on the 
+  # summary table created previously.
+  aes(x = Elig., y = mean, group = count) +
+  # Elig. (grade) will be on the horizontal axis, mean will be on the 
+  # vertical axis, and the data will overall be grouped by count.
+  geom_col(fill = "#3F567E") +
+  # geom_col will display a bar chart.
+  labs(
+    x = "Player Grade (Year)",
+    y = "Mean Sets Played",
+    title = "Penn State Women's Volleyball Average Number of Sets Played Per Grade (2023 Season)"
+  # Sets the axes and title of the data visualization.
+  ) +
+  theme_minimal()
+
+```
+From this data visualization, the viewer can see that the mean number of sets played was lowest for the freshman compared to the other class groups. The mean number of sets played was highest for the seniors, meaning that on average, the seniors played the most sets overall. An important item to note is that the mean number of sets played is higher for the sophomores than it is for the juniors, even though the juniors are older. In this case, the juniors don't play as much as the sophomores, on average, showing that the volleyball team does not choose who plays based on seniority.
+
+```{r averageStatsPerPositionSummaryTable}
+
+setsSummaryTable <- psuOffensive %>%
+  # Creates a summary table based on the wrangled and tidied data with object
+  # name "psuOffensive" from a previous code chunk.
+  group_by(Pos.) %>%
+  # We are grouping by position, meaning that the summary
+  # statistics will be given for each grade.
   summarize(
   count = n(),
   minimum = min(SP),
@@ -139,41 +239,24 @@ setsSummaryTable2 <- setsSummaryTable %>%
   mutate(
     across(where(is.numeric), round, 2)
     )
+  # This section utilizes the mutate function to round any variable that
+  # is a number to 2 decimal places.
 
 setsSummaryTable2 %>%
   kable(
-  col.names = c("Grade","Count", "Minimum", "First Quartile", "Median", "Third Quartile", "Maximum", "Arithmetic Mean", "Arithmetic Standard Deviation"),
+  col.names = c("Position","Count", "Minimum", "First Quartile", "Median", "Third Quartile", "Maximum", "Arithmetic Mean", "Arithmetic Standard Deviation"),
+  # Changes the column names to those listed above.
   caption = "Summary Statistics of Average Sets Played Per Grade",
+  # Changes the title of the summary table.
   booktabs = TRUE,
   align = c("l", rep("c", 6))
   ) %>%
   kableExtra::kable_classic()
+  # This section utilizes the kableExtra package to create a clear summary
+  # table for the viewer to look at.
 
 View(setsSummaryTable2)
-# Mutate function, freshman is first year, etc. 
-```
 
-```{r renamingEligibilityRows}
-
-
-
-```
-
-```{r averageSetsPlayedPerSchoolYearDataVisualization}
-
-ggplot(setsSummaryTable2) +
-  aes(x = Elig., y = mean, group = count) +
-  geom_col(fill = "#3F567E") +
-  labs(
-    x = "Player Grade (Year)",
-    y = "Mean Sets Played",
-    title = "Penn State Women's Volleyball Average Number of Sets Played Per Grade (2023 Season)"
-  ) +
-  theme_minimal()
-
-```
-
-```{r averageStatsPerPositionSummaryTable}
 ```
 
 ## Research Questions
