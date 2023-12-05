@@ -581,17 +581,49 @@ display: none;
 </div>
 
 
-<div id="introduction" class="section level2">
-<h2>Introduction</h2>
+<div id="introduction" class="section level1">
+<h1>Introduction</h1>
 <p>The following document aims to provide details on Penn State Women’s
-Volleyball data. Each variable is based on specific player.</p>
+Volleyball data.</p>
+<div id="the-general-rules-of-collegiate-volleyball" class="section level3">
+<h3>The General Rules of Collegiate Volleyball</h3>
+</div>
+<div id="volleyball-terms-used-in-this-document" class="section level3">
+<h3>Volleyball Terms Used in This Document</h3>
 <p>The following column headings were collected from the Penn State
 Women’s Volleyball website and may be used in the data frames, tables,
-and visualizations.</p>
-<p>Player - Penn State Women’s Volleyball player first and last name SP
-- Sets played MP - MS - PTS - Total points earned for the 2023 season
-PTS/S - K - Total number of kills K/S - E - TA - PCT - A - A/S - SA -
-SA/S - SE -</p>
+and visualizations. Each are based on individual volleyball players.</p>
+<p>Player - Penn State Women’s Volleyball player first and last
+name<br />
+SP - Sets played<br />
+MP -<br />
+MS -<br />
+PTS - Total points earned for the 2023 season<br />
+PTS/S -<br />
+K - Total number of kills<br />
+K/S -<br />
+E -<br />
+TA -<br />
+PCT -<br />
+A -<br />
+A/S -<br />
+SA -<br />
+SA/S -<br />
+SE -</p>
+<p>The following are the different positions on the volleyball team,
+which may be referenced in a data visualization or table.</p>
+<p>MB -<br />
+L -<br />
+DS -<br />
+OH -<br />
+S -<br />
+RS -</p>
+<p>Some players have more than one position. In these cases, the
+player’s data will be included twice, once for each position, for
+comparisons that relate to the player’s position.</p>
+</div>
+<div id="research-questions" class="section level3">
+<h3>Research Questions</h3>
 <p>All code should be written according to a Style Guide of your choice.
 List this Style Guide as a code comment in your first code chunk.</p>
 <pre><code>## New names:
@@ -612,21 +644,10 @@ List this Style Guide as a code comment in your first code chunk.</p>
 ## • `SERVE` -&gt; `SERVE...15`
 ## • `SERVE` -&gt; `SERVE...16`
 ## • `SERVE` -&gt; `SERVE...17`</code></pre>
-<pre><code>## Warning in (table_start):(table_end): numerical expression has 2 elements: only
-## the first used</code></pre>
-<p>Average sets per year in terms of school year (bar chart) Summary
-Table: Average of specific stats for each position</p>
-<pre><code>## Warning: There was 1 warning in `mutate()`.
-## ℹ In argument: `across(where(is.numeric), round, 2)`.
-## Caused by warning:
-## ! The `...` argument of `across()` is deprecated as of dplyr 1.1.0.
-## Supply arguments directly to `.fns` through an anonymous function instead.
-## 
-##   # Previously
-##   across(a:b, mean, na.rm = TRUE)
-## 
-##   # Now
-##   across(a:b, \(x) mean(x, na.rm = TRUE))</code></pre>
+</div>
+</div>
+<div id="conducting-exploratory-data-analysis" class="section level1">
+<h1>Conducting Exploratory Data Analysis</h1>
 <table class=" lightable-classic" style="font-family: &quot;Arial Narrow&quot;, &quot;Source Sans Pro&quot;, sans-serif; margin-left: auto; margin-right: auto;">
 <caption>
 Summary Statistics of Average Sets Played Per Grade
@@ -860,7 +881,7 @@ sophomores, on average, showing that the volleyball team does not choose
 who plays based on seniority.</p>
 <table class=" lightable-classic" style="font-family: &quot;Arial Narrow&quot;, &quot;Source Sans Pro&quot;, sans-serif; margin-left: auto; margin-right: auto;">
 <caption>
-Summary Statistics of Average Sets Played Per Grade
+Summary Statistics of Average Points Earned Per Position
 </caption>
 <thead>
 <tr>
@@ -899,86 +920,57 @@ Arithmetic Standard Deviation
 DS
 </td>
 <td style="text-align:center;">
-1
+5
 </td>
 <td style="text-align:center;">
-11
+0.0
 </td>
 <td style="text-align:center;">
-11.0
+0.00
 </td>
 <td style="text-align:center;">
-11
+6
 </td>
 <td style="text-align:center;">
-11.0
+22.00
 </td>
 <td style="text-align:center;">
-11
+28.0
 </td>
 <td style="text-align:left;">
-11.00
+11.20
 </td>
 <td style="text-align:center;">
-NA
+13.01
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-DS/S
-</td>
-<td style="text-align:center;">
-1
-</td>
-<td style="text-align:center;">
-18
-</td>
-<td style="text-align:center;">
-18.0
-</td>
-<td style="text-align:center;">
-18
-</td>
-<td style="text-align:center;">
-18.0
-</td>
-<td style="text-align:center;">
-18
-</td>
-<td style="text-align:left;">
-18.00
-</td>
-<td style="text-align:center;">
-NA
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-L/DS
+L
 </td>
 <td style="text-align:center;">
 3
 </td>
 <td style="text-align:center;">
-51
+6.0
 </td>
 <td style="text-align:center;">
-70.5
+14.00
 </td>
 <td style="text-align:center;">
-90
+22
 </td>
 <td style="text-align:center;">
-103.0
+25.00
 </td>
 <td style="text-align:center;">
-116
+28.0
 </td>
 <td style="text-align:left;">
-85.67
+18.67
 </td>
 <td style="text-align:center;">
-32.72
+11.37
 </td>
 </tr>
 <tr>
@@ -989,25 +981,25 @@ MB
 2
 </td>
 <td style="text-align:center;">
-116
+258.5
 </td>
 <td style="text-align:center;">
-116.0
+267.25
 </td>
 <td style="text-align:center;">
-116
+276
 </td>
 <td style="text-align:center;">
-116.0
+284.75
 </td>
 <td style="text-align:center;">
-116
+293.5
 </td>
 <td style="text-align:left;">
-116.00
+276.00
 </td>
 <td style="text-align:center;">
-0.00
+24.75
 </td>
 </tr>
 <tr>
@@ -1015,57 +1007,28 @@ MB
 OH
 </td>
 <td style="text-align:center;">
-3
+5
 </td>
 <td style="text-align:center;">
-2
+0.0
 </td>
 <td style="text-align:center;">
-49.0
+61.00
 </td>
 <td style="text-align:center;">
-96
+132
 </td>
 <td style="text-align:center;">
-105.0
+182.00
 </td>
 <td style="text-align:center;">
-114
+567.5
 </td>
 <td style="text-align:left;">
-70.67
+188.50
 </td>
 <td style="text-align:center;">
-60.14
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-OH/RS
-</td>
-<td style="text-align:center;">
-2
-</td>
-<td style="text-align:center;">
-57
-</td>
-<td style="text-align:center;">
-61.0
-</td>
-<td style="text-align:center;">
-65
-</td>
-<td style="text-align:center;">
-69.0
-</td>
-<td style="text-align:center;">
-73
-</td>
-<td style="text-align:left;">
-65.00
-</td>
-<td style="text-align:center;">
-11.31
+222.86
 </td>
 </tr>
 <tr>
@@ -1073,28 +1036,28 @@ OH/RS
 RS
 </td>
 <td style="text-align:center;">
-2
+4
 </td>
 <td style="text-align:center;">
-3
+0.0
 </td>
 <td style="text-align:center;">
-29.0
+99.00
 </td>
 <td style="text-align:center;">
-55
+157
 </td>
 <td style="text-align:center;">
-81.0
+229.12
 </td>
 <td style="text-align:center;">
-107
+370.5
 </td>
 <td style="text-align:left;">
-55.00
+171.12
 </td>
 <td style="text-align:center;">
-73.54
+153.50
 </td>
 </tr>
 <tr>
@@ -1102,34 +1065,61 @@ RS
 S
 </td>
 <td style="text-align:center;">
+3
+</td>
+<td style="text-align:center;">
+0.0
+</td>
+<td style="text-align:center;">
+1.00
+</td>
+<td style="text-align:center;">
 2
 </td>
 <td style="text-align:center;">
-13
+55.75
 </td>
 <td style="text-align:center;">
-38.5
-</td>
-<td style="text-align:center;">
-64
-</td>
-<td style="text-align:center;">
-89.5
-</td>
-<td style="text-align:center;">
-115
+109.5
 </td>
 <td style="text-align:left;">
-64.00
+37.17
 </td>
 <td style="text-align:center;">
-72.12
+62.65
 </td>
 </tr>
 </tbody>
 </table>
-</div>
-<div id="research-questions" class="section level2">
+<p>From the visualization above, one can gather that the number of
+points depends on where the player is on the court, which depends on
+their position. For example, while there’s only two players who have
+middle blocker (MB) listed on their position, they have scored the
+highest average number of points. However, the individual who has the
+most number of points belongs to the outside hitter (OH), with a maximum
+of 567.5 points scored. The right side (RS) players also have a
+relatively high average of points scored, making the three positions
+with the highest average scores to be the MB, OH, and RS positions. We
+can see that the Liberos (L) and Defensive Specialist (DS) positions, as
+well as the setter (S) often don’t score. Liberos and Defensive
+Specialists are often in the rear of the court, which is why they do not
+score points as much as the right side, outside hitter, and middle
+blocker, since those are the positions right at the net, where the ball
+is often spiked. This is depicted in the summary table.</p>
+<p><img src="data:image/png;base64,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" width="672" />
+The boxplot above describes the different heights of the different
+players grouped by their position on Penn State’s Women’s Volleyball
+team. The shorter players on the team (depicted by a smaller inch size)
+are seen to be primarily the Defensive Specialist and the Libero. The
+tallest players are seen to be Middle Blockers, Outside Hitters, and
+Right Side. In this way, the tallest players are the ones closer to the
+net. The taller players have added height that aids them in achieving
+success in their specific position. Contrarily, the positions of
+Defensive Specialist and Libero do not necessarily require great height,
+since they are farther back on the court. The range in height of the
+Setters (S) varies greatly, showing that many different women,
+regardless of height, can be successful at that position.</p>
+<div id="research-questions-1" class="section level2">
 <h2>Research Questions</h2>
 <p>based on summary table of PSU team and visualizations</p>
 </div>
@@ -1182,6 +1172,7 @@ variety of your skills and geometries.</p>
 assists both the team and readers in understanding the data.</p>
 <p>Have narrative text explaining every data visualization and table as
 well as setting a framework.</p>
+</div>
 </div>
 
 
