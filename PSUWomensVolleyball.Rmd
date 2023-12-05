@@ -67,7 +67,6 @@ psuVBRoster <- psuVBRoster %>%
   select('#', 'Full Name', 'Pos.', 'Elig.', 'Height (in.)', 'Hometown / High School')
 #reorders column and removes feet and inches columns
 
-View(psuVBRoster)
 ```
 
 ```{r PSURosterStatsTable}
@@ -131,7 +130,6 @@ psuOffensiveRoster <- inner_join(
 psuSepPos <- separate_longer_delim(psuOffensiveRoster, 'Pos.', delim = '/')
 #creates a second row for players with two positions so each row has only one position
 
-View(psuOffensive)
 ```
 
 ```{r OSURosterStatsTable}
@@ -155,7 +153,6 @@ clean_table <- function(raw) {
   data_table
 }
 osuRawStats <- map_df(raw_text, clean_table)
-View(osuRawStats)
 #the osu data is very dirty, with some columns holding data from more than one column
 
 osuFixOne <- osuRawStats[1, ] %>%
@@ -235,8 +232,6 @@ psuJoin <- psuOffensive %>%
 psuAndOsu <- rbind(psuJoin, osuJoin)
 #vertically joins the psu and osu data together
 
-View(psuAndOsu)
-
 ```
 
 
@@ -244,7 +239,7 @@ Average sets per year in terms of school year (bar chart)
 Summary Table: Average of specific stats for each position
 
 ```{r averageSetsPlayedPerSchoolYearDataTable}
-setsSummaryTable <- psuOffensive %>%
+setsSummaryTable <- psuOffensiveRoster %>%
   # Creates a summary table based on the wrangled and tidied data
   # from the previous code chunk.
   group_by(Elig.) %>%
@@ -317,7 +312,7 @@ From this data visualization, the viewer can see that the mean number of sets pl
 
 ```{r averageStatsPerPositionSummaryTable}
 
-setsSummaryTable <- psuOffensive %>%
+setsSummaryTable <- psuOffensiveRoster %>%
   # Creates a summary table based on the wrangled and tidied data with object
   # name "psuOffensive" from a previous code chunk.
   group_by(Pos.) %>%
@@ -378,7 +373,7 @@ Describe what attributes you'll focus your analysis on (mention if they are part
 - points vs. height (scatter)- Ayla
 ```{r PointsVHeight, echo = FALSE}
 
-ggplot(psuOffensive) +
+ggplot(psuOffensiveRoster) +
   aes(x = `Height (in.)`, y = PTS) +
   geom_point(shape = "circle", size = 1.8, colour = "#005BAC") +
   labs(
