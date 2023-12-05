@@ -156,15 +156,24 @@ View(setsSummaryTable2)
 ```{r renamingEligibilityRows}
 
 
+
 ```
 
 ```{r averageSetsPlayedPerSchoolYearDataVisualization}
-# esquisse::esquisser(data = setsSummaryTable2, viewer = 'browser')
-# Group by position on the summary table
+
+ggplot(setsSummaryTable2) +
+  aes(x = Elig., y = mean, group = count) +
+  geom_col(fill = "#3F567E") +
+  labs(
+    x = "Player Grade (Year)",
+    y = "Mean Sets Played",
+    title = "Penn State Women's Volleyball Average Number of Sets Played Per Grade (2023 Season)"
+  ) +
+  theme_minimal()
+
 ```
 
 ```{r averageStatsPerPositionSummaryTable}
-
 ```
 
 ## Research Questions
