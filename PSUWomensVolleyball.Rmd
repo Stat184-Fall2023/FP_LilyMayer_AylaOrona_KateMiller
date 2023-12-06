@@ -6,9 +6,14 @@ output: html_document
 ---
 ## Introduction
 
-The following document aims to provide details on Penn State Women's Volleyball data. Each variable is based on specific player.
+The following document aims to provide details on Penn State Women's Volleyball data.
 
-The following column headings were collected from the Penn State Women's Volleyball website and may be used in the data frames, tables, and visualizations.
+## The General Rules of Collegiate Volleyball
+
+
+## Volleyball Terms Used in This Document
+
+The following column headings were collected from the Penn State Women's Volleyball website and may be used in the data frames, tables, and visualizations. Each are based on individual volleyball players.
 
 Player - Penn State Women's Volleyball player first and last name
 SP - Total number of sets played
@@ -26,6 +31,17 @@ A/S - Average number of assists per sets played
 SA - Total number of service aces, an ace means the serving team won the point before the recieving team could return the ball over the net
 SA/S - Average number of service aces per sets played
 SE - Total number of service errors, meaning the serve did not throw the ball over the net or threw it out of bounds
+
+The following are the different positions on the volleyball team, which may be referenced in a data visualization or table.
+
+MB - 
+L - 
+DS - 
+OH - 
+S - 
+RS - 
+
+Some players have more than one position. In these cases, the player's data will be included twice, once for each position, for comparisons that relate to the player's position. 
 
 
 All code should be written according to a Style Guide of your choice. List this Style Guide as a code comment in your first code chunk.
