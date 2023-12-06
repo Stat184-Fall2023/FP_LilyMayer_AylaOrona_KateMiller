@@ -371,7 +371,10 @@ View(setsSummaryTable2)
 
 ## Research Questions
 
-based on summary table of PSU team and visualizations
+-What is the connection between amount of points a player scores versus their height?
+-What are the average stats for each position?
+-What is the average number of sets played based on college year?
+-How does PSU compare in points scored/number of kills to OSU?
 
 ## Read in data and perform necessary wrangling and cleaning
 Describe your data sources (where they come from, what was their original purpose, who/what comprise the cases in each).
@@ -382,15 +385,19 @@ Notes:
 
 Describe what attributes you'll focus your analysis on (mention if they are part of your data sets or if you created them out of your data sets).
 
--service ace per set vs service error per set. To get rate of errors: SE column divided by SP column.
-- Visualizations: stats of each year for each player(bar chart, histogram), PSU v. OSU, etc.
+- Visualizations:
+- Total points scored vs. height
+- Average stats for each position
+- Average number of sets played for each college year
+- PSU vs. OSU in total points or kills
+
 
 ## Conduct Exploratory Data Analysis
 - points vs. height (scatter)- Ayla
 ```{r PointsVHeight, echo = FALSE}
-
-ggplot(psuOffensiveRoster) +
-  aes(x = `Height (in.)`, y = PTS) +
+#Hide the code until the appendix 
+ggplot(psuOffensiveRoster) + #Plot based on the PSU offensive roster
+  aes(x = `Height (in.)`, y = PTS) + 
   geom_point(shape = "circle", size = 1.8, colour = "#005BAC") +
   labs(
     x = "Height (in.)",
@@ -405,7 +412,7 @@ ggplot(psuOffensiveRoster) +
   )
 
 ```
-The visualization shown above is the comparison of each players height versus their total amount of points for this season. As seen in the graph, the player that has scored the most amount of points this season is 73 in (6'2 ft) with points ranging in the 500s. The players with the most amount of points range from 73 in (6'2 ft) to 75 in (6'4 ft)....
+The visualization shown above is the comparison of each players height versus their total amount of points for this season. As seen in the graph, the player that has scored the most amount of points this season is 73 in. (6'2 ft) with points ranging in the 500s. The players with the most amount of points range from 73 in (6'2 ft) to 75 in (6'4 ft). We can also see on the graph that the most popular height of the team is 74 in. because they have the most amount of points on 74in line. 
 
 - average sets per year in terms of school year(bar chart)- Kate
 - Summary Table: average of specific stats for each position- Kate
