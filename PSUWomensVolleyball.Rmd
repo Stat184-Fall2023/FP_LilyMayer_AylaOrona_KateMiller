@@ -11,27 +11,28 @@ The following document aims to provide details on Penn State Women's Volleyball 
 The following column headings were collected from the Penn State Women's Volleyball website and may be used in the data frames, tables, and visualizations.
 
 Player - Penn State Women's Volleyball player first and last name
-SP - Sets played
-MP -
-MS - 
+SP - Total number of sets played
+MP - Total number of matches played
+MS - Total number of matches where the player started
 PTS - Total points earned for the 2023 season
-PTS/S - 
-K - Total number of kills
-K/S - 
-E -
-TA -
-PCT - 
-A - 
-A/S - 
-SA -
-SA/S - 
-SE - 
+PTS/S - Average number of points earned per sets played
+K - Total number of kills ****
+K/S - Average number of kills executed per sets played
+E - Total number of errors
+TA - Total attacks ***
+PCT - Attack percentage ***
+A - Total number of assists where the player threw the ball to a teammate who then won the point
+A/S - Average number of assists per sets played
+SA - Total number of service aces, an ace means the serving team won the point before the recieving team could return the ball over the net
+SA/S - Average number of service aces per sets played
+SE - Total number of service errors, meaning the serve did not throw the ball over the net or threw it out of bounds
 
 
 All code should be written according to a Style Guide of your choice. List this Style Guide as a code comment in your first code chunk.
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
 # List Style Guide in this code chunk
+#BOAST STYLE GUIDE OR GOOGLE'S R GUIDE
 library(rvest)
 library(ggplot2)
 library(knitr)
