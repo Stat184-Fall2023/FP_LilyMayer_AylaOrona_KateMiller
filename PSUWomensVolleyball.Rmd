@@ -10,6 +10,7 @@ The following document aims to provide details on Penn State Women's Volleyball 
 
 ## The General Rules of Collegiate Volleyball
 
+Volleyball is a game that consists of two teams each with six players hitting a ball over a net to score points. Each play starts by a setter on one team hitting the ball over the net. After the ball is served, each team is allowed to touch the ball three times before the ball must go over the net. Throughout the game, when the ball hits the ground of an opposing teams side, points are given to the team that last hit the ball. 
 
 ## Volleyball Terms Used in This Document
 
@@ -44,7 +45,9 @@ RS - Rightside Hitter
 Some players have more than one position. In these cases, the player's data will be included twice, once for each position, for comparisons that relate to the player's position. 
 
 
+
 All code should be written according to a Style Guide of your choice. List this Style Guide as a code comment in your first code chunk.
+
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
 # List Style Guide in this code chunk
@@ -251,6 +254,28 @@ psuAndOsu <- rbind(psuJoin, osuJoin)
 
 ```
 
+Overall Points Scored Vs. Player Height
+```{r PointsVHeight, echo = FALSE}
+#Hide the code until the appendix 
+ggplot(psuOffensiveRoster) + #Plot based on the PSU offensive roster
+  aes(x = `Height (in.)`, y = PTS) + 
+  geom_point(shape = "circle", size = 1.8, colour = "#005BAC") +
+  labs(
+    x = "Height (in.)",
+    y = "Points",
+    title = "Total Points Vs. Player Height",
+    subtitle = "2023 Penn State Womens Volleyball season"
+  ) +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(size = 16L),
+    axis.title.y = element_text(size = 13L),
+    axis.title.x = element_text(size = 13L)
+  )
+
+```
+The visualization shown above is the comparison of each players height versus their total amount of points for this season. As seen in the graph, the player that has scored the most amount of points this season is 73 in. (6'2 ft) with points ranging in the 500s. The players with the most amount of points range from 73 in (6'2 ft) to 75 in (6'4 ft). We can also see on the graph that the most popular height of the team is 74 in. because they have the most amount of data points on 74in line.
+
 
 Average sets per year in terms of school year (bar chart)
 Summary Table: Average of specific stats for each position
@@ -265,7 +290,7 @@ setsSummaryTable <- psuOffensiveRoster %>%
   summarize(
   count = n(),
   minimum = min(SP),
-  # Since we are looking specificially at the data for sets played, we select
+  # Since we are looking specifically at the data for sets played, we select
   # the variable "SP" for all the statistics.
   firstQuintile = quantile(SP, 0.25),
   median = median(SP),
@@ -370,6 +395,8 @@ View(setsSummaryTable2)
 
 ```
 
+
+
 ## Research Questions
 
 -What is the connection between amount of points a player scores versus their height?
@@ -394,26 +421,7 @@ Describe what attributes you'll focus your analysis on (mention if they are part
 
 
 ## Conduct Exploratory Data Analysis
-Overall Points vs. Player Height
-```{r PointsVHeight, echo = FALSE}
-#Hide the code until the appendix 
-ggplot(psuOffensiveRoster) + #Plot based on the PSU offensive roster
-  aes(x = `Height (in.)`, y = PTS) + 
-  geom_point(shape = "circle", size = 1.8, colour = "#005BAC") +
-  labs(
-    x = "Height (in.)",
-    y = "Points",
-    title = "Total Points Vs. Player Height"
-  ) +
-  theme_minimal() +
-  theme(
-    plot.title = element_text(size = 16L),
-    axis.title.y = element_text(size = 13L),
-    axis.title.x = element_text(size = 13L)
-  )
 
-```
-The visualization shown above is the comparison of each players height versus their total amount of points for this season. As seen in the graph, the player that has scored the most amount of points this season is 73 in. (6'2 ft) with points ranging in the 500s. The players with the most amount of points range from 73 in (6'2 ft) to 75 in (6'4 ft). We can also see on the graph that the most popular height of the team is 74 in. because they have the most amount of data points on 74in line. 
 
 - average sets per year in terms of school year(bar chart)- Kate
 - Summary Table: average of specific stats for each position- Kate
