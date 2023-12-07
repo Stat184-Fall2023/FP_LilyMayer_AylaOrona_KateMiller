@@ -28,18 +28,18 @@ TA - Total attacks ***
 PCT - Attack percentage ***
 A - Total number of assists where the player threw the ball to a teammate who then won the point
 A/S - Average number of assists per sets played
-SA - Total number of service aces, an ace means the serving team won the point before the recieving team could return the ball over the net
+SA - Total number of service aces, an ace means the serving team won the point before the receiving team could return the ball over the net
 SA/S - Average number of service aces per sets played
 SE - Total number of service errors, meaning the serve did not throw the ball over the net or threw it out of bounds
 
 The following are the different positions on the volleyball team, which may be referenced in a data visualization or table.
 
-MB - 
-L - 
-DS - 
-OH - 
-S - 
-RS - 
+MB - Middleblocker
+L - Libero
+DS - Defensive Specialist
+OH - Outside Hitter
+S - Setter
+RS - Rightside Hitter
 
 Some players have more than one position. In these cases, the player's data will be included twice, once for each position, for comparisons that relate to the player's position. 
 
@@ -394,7 +394,7 @@ Describe what attributes you'll focus your analysis on (mention if they are part
 
 
 ## Conduct Exploratory Data Analysis
-- points vs. height (scatter)- Ayla
+Overall Points vs. Player Height
 ```{r PointsVHeight, echo = FALSE}
 #Hide the code until the appendix 
 ggplot(psuOffensiveRoster) + #Plot based on the PSU offensive roster
@@ -413,7 +413,7 @@ ggplot(psuOffensiveRoster) + #Plot based on the PSU offensive roster
   )
 
 ```
-The visualization shown above is the comparison of each players height versus their total amount of points for this season. As seen in the graph, the player that has scored the most amount of points this season is 73 in. (6'2 ft) with points ranging in the 500s. The players with the most amount of points range from 73 in (6'2 ft) to 75 in (6'4 ft). We can also see on the graph that the most popular height of the team is 74 in. because they have the most amount of points on 74in line. 
+The visualization shown above is the comparison of each players height versus their total amount of points for this season. As seen in the graph, the player that has scored the most amount of points this season is 73 in. (6'2 ft) with points ranging in the 500s. The players with the most amount of points range from 73 in (6'2 ft) to 75 in (6'4 ft). We can also see on the graph that the most popular height of the team is 74 in. because they have the most amount of data points on 74in line. 
 
 - average sets per year in terms of school year(bar chart)- Kate
 - Summary Table: average of specific stats for each position- Kate
