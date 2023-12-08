@@ -1,5 +1,5 @@
 ---
-title: "PSU Womens Volleyball"
+title: "Exploring PSU Women's Volleyball and OSU Women's Volleyball Data"
 author: "Lily Mayer, Ayla Orona, Kate Miller"
 date: "2023-11-29"
 output: html_document
@@ -14,7 +14,6 @@ Volleyball is a game that consists of two teams each with six players hitting a 
 
 ### Volleyball Terms Used in This Document
 
-<<<<<<< HEAD
 The following column headings were collected from the Penn State Women's Volleyball website and may be used in the data frames, tables, and visualizations. Each are based on individual volleyball players.  
   
 Player - Penn State Women's Volleyball player first and last name  
@@ -457,7 +456,7 @@ The boxplot above describes the different heights of the different players group
 # esquisse::esquisser(data = psuAndOsu, viewer = 'browser')
 
 ggplot(psuAndOsu) +
-  aes(x = `A/S`, y = `K/S`, colour = School) +
+  aes(x = `SA/S`, y = `K/S`, colour = School) +
   geom_point(shape = "circle", size = 1.5) +
   scale_color_manual(
     values = c(OSU = "#E91506",
@@ -465,8 +464,8 @@ ggplot(psuAndOsu) +
   ) +
   labs(
     x = "Kills Per Set Per Player",
-    y = "Aces Per Set Per Player",
-    title = "Aces Per Set Per Player Versus Kills Per Set Per Player",
+    y = "Service Aces Per Set Per Player",
+    title = "Service Aces Per Set Per Player Versus Kills Per Set Per Player",
     subtitle = "(2023 Women's Volleyball Statistics for Penn State University and Ohio State University)",
     color = "School"
   ) +
@@ -475,6 +474,10 @@ ggplot(psuAndOsu) +
 ```
 The above data visualization depicts an interesting comparison between kills per set per player and aces per set per player, showing if whether those who have more kills also have more aces, and vice versa. A kill is when the player ends the point by hitting the ball into an area that the opposing team cannot get. An ace is when the player serves the ball, but no one on the opposing team is able to receive it. We were aiming to see whether those who had more kills, who are usually more aggressive, since points often come from speed and force of the ball, also used that aggression when serving. Aces would come about from high speed of the ball, though position on the court (where the ball lands/is aimed) is also a contributing factor. As seen in the scatter plot, there is no apparent correlation between aces per set and kills per set per player. Some individuals have a high number of aces, with very few kills, and others have a high number of kills with very few aces, for both teams. Many individuals are clustered around the lower left hand corner of the visualization, showing that they didn't have many aces or kills. When comparing the two different teams (OSU and PSU), one can see that Penn State has two individuals with a higher ace per set rate than the Ohio State players, whereas Ohio State has two individuals with a higher kill per set rate than the majority of Penn State players.
 
+``` {r TotalAttacksPerSet}
+
+
+```
 
 ## Research Questions
 
