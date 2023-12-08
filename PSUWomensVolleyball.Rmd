@@ -475,7 +475,7 @@ ggplot(psuAndOsu) +
 The above data visualization depicts an interesting comparison between kills per set per player and aces per set per player, showing if whether those who have more kills also have more aces, and vice versa. A kill is when the player ends the point by hitting the ball into an area that the opposing team cannot get. An ace is when the player serves the ball, but no one on the opposing team is able to receive it. We were aiming to see whether those who had more kills, who are usually more aggressive, since points often come from speed and force of the ball, also used that aggression when serving. Aces would come about from high speed of the ball, though position on the court (where the ball lands/is aimed) is also a contributing factor. As seen in the scatter plot, there is no apparent correlation between aces per set and kills per set per player. Some individuals have a high number of aces, with very few kills, and others have a high number of kills with very few aces, for both teams. Many individuals are clustered around the lower left hand corner of the visualization, showing that they didn't have many aces or kills. When comparing the two different teams (OSU and PSU), one can see that Penn State has two individuals with a higher ace per set rate than the Ohio State players, whereas Ohio State has two individuals with a higher kill per set rate than the majority of Penn State players.
 
 ``` {r TotalAttacksPerSet}
-
+Attacks per set versus kills per set (TA/S)
 
 ```
 
