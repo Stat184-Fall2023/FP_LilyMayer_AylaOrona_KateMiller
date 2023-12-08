@@ -34,12 +34,12 @@ SE - Total number of service errors, meaning the serve did not throw the ball ov
 
 The following are the different positions on the volleyball team, which may be referenced in a data visualization or table.
 
-MB - 
-L - 
-DS - 
-OH - 
-S - 
-RS - 
+MB - Middle Blocker:
+L - Libero:
+DS - Defensive Specialist:
+OH - Outside Hitter:
+S - Setter: 
+RS - Opposite Hitter:
 
 Some players have more than one position. In these cases, the player's data will be included twice, once for each position, for comparisons that relate to the player's position. 
 
@@ -146,6 +146,13 @@ psuOffensiveRoster <- inner_join(
 
 psuSepPos <- separate_longer_delim(psuOffensiveRoster, 'Pos.', delim = '/')
 #creates a second row for players with two positions so each row has only one position
+
+psuSepPos <- psuSepPos %>%
+  mutate(`TA/S` = TA / SP) %>%
+  mutate(across(22, round, 3)) %>%
+  relocate('TA/S', .after='TA')
+
+View(psuSepPos)
 
 ```
 
