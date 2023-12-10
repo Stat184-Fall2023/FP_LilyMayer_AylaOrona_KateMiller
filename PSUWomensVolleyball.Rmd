@@ -12,7 +12,7 @@ The following document aims to provide details on Penn State Women's Volleyball 
 
 Volleyball is a game that consists of two teams each with six players hitting a ball over a net to score points. Each play starts by a setter on one team hitting the ball over the net. After the ball is served, each team is allowed to touch the ball three times before the ball must go over the net, however a player may not hit the ball two times in a row. Throughout the game, when the ball hits the ground of an opposing teams side, points are given to the team that last hit the ball. Based on whichever team scored the point, they receive the ball to serve the next play. 
 
-Each game consists of five sets. In order to win a set a team must score 25 points. One score is equal to one point. To win the whole game a team must win 3 out of the five sets.
+Each game consists of five sets. In order to win a set a team must score 25 points. One score is equal to one point. To win the whole game a team must win three out of the five sets.
 
 ### Volleyball Terms Used in This Document
 
