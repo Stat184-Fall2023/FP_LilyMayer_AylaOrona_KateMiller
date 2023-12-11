@@ -25,11 +25,11 @@ MP - Total number of matches played
 MS - Total number of matches where the player started
 PTS - Total points earned for the 2023 season
 PTS/S - Average number of points earned per sets played
-K - Total number of kills ****, a kill is when a player scores a point without the ball being returned from the opposite team.
+K - Total number of kills, a kill is when a player scores a point without the ball being returned from the opposite team.
 K/S - Average number of kills executed per sets played
 E - Total number of errors
-TA - Total attacks ***, an attack is 
-PCT - Attack percentage ***
+TA - Total attacks, an attack is when a player jumps and spikes the ball downward over the net in an attempt to score a kill
+PCT - Attack percentage is calculated by subtracting kills minus errors then dividing by total number of attacks
 A - Total number of assists where the player threw the ball to a teammate who then won the point
 A/S - Average number of assists per sets played
 SA - Total number of service aces, an ace means the serving team won the point before the receiving team could return the ball over the net
@@ -38,12 +38,12 @@ SE - Total number of service errors, meaning the serve did not throw the ball ov
 
 The following are the different positions on the volleyball team, which may be referenced in a data visualization or table.
 
-MB - Middle Blocker:
-L - Libero:
-DS - Defensive Specialist:
-OH - Outside Hitter:
-S - Setter: 
-RS - Opposite Hitter:
+MB - Middle Blocker: The tallest person on the team. The middle blocker aims to block attacks from the other team.
+L - Libero: An exclusive back-row player who is not allowed to approach the net. The libero specializes in getting digs by receiving attacks from the other team.
+DS - Defensive Specialist: A substitute for any player on the court who focuses on ball passing and control.
+OH - Outside Hitter: The hitter on the left side of the net. Both hitters aim to get attacks or kills. 
+S - Setter: A setter will 'set' the ball for a hitter to get an attack or a kill. The setter typically gets the second touch on their side
+RS - Opposite Hitter: The hitter on the right side of the net. Both hitters aim to get attacks or kills. 
 
 
 Some players have more than one position. In these cases, the player's data will be included twice, once for each position, for comparisons that relate to the player's position. 
