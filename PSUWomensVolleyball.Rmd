@@ -10,40 +10,40 @@ The following document aims to provide details on Penn State Women's Volleyball 
 
 ### The General Rules of Collegiate Volleyball
 
-Volleyball is a game that consists of two teams each with six players hitting a ball over a net to score points. Each play starts by a setter on one team hitting the ball over the net. After the ball is served, each team is allowed to touch the ball three times before the ball must go over the net, however a player may not hit the ball two times in a row. Throughout the game, when the ball hits the ground of an opposing teams side, points are given to the team that last hit the ball. Based on whichever team scored the point, they receive the ball to serve the next play. 
+Volleyball is a game that consists of two teams each with six players hitting a ball over a net to score points. Each play starts by a setter on one team hitting the ball over the net. After the ball is served, each team is allowed to touch the ball three times before the ball must go over the net, however a single player may not hit the ball two times in a row. Throughout the game, when the ball hits the ground of an opposing teams side, points are given to the team that last hit the ball. Based on whichever team scored the point, they receive the ball to serve the next play.  
 
-Each game consists of five sets. In order to win a set a team must score 25 points. One score is equal to one point. To win the whole game a team must win three out of the five sets.
+Each game consists of five sets. In order to win a set a team must score 25 points. One score is equal to one point. To win the whole game a team must win three out of the five sets.  
 
-### Volleyball Terms Used in This Document
+### Volleyball Terms Used in This Document  
 
 
 The following column headings were collected from the Penn State Women's Volleyball website and may be used in the data frames, tables, and visualizations. Each are based on individual volleyball players.
 
-Player - Penn State Women's Volleyball player first and last name
-SP - Total number of sets played
-MP - Total number of matches played
-MS - Total number of matches where the player started
-PTS - Total points earned for the 2023 season
-PTS/S - Average number of points earned per sets played
-K - Total number of kills, a kill is when a player scores a point without the ball being returned from the opposite team.
-K/S - Average number of kills executed per sets played
-E - Total number of errors
-TA - Total attacks, an attack is when a player jumps and spikes the ball downward over the net in an attempt to score a kill
-PCT - Attack percentage is calculated by subtracting kills minus errors then dividing by total number of attacks
-A - Total number of assists where the player threw the ball to a teammate who then won the point
-A/S - Average number of assists per sets played
-SA - Total number of service aces, an ace means the serving team won the point before the receiving team could return the ball over the net
-SA/S - Average number of service aces per sets played
-SE - Total number of service errors, meaning the serve did not throw the ball over the net or threw it out of bounds
+Player - Penn State Women's Volleyball player first and last name  
+SP - Total number of sets played  
+MP - Total number of matches played  
+MS - Total number of matches where the player started the game  
+PTS - Total points earned for the 2023 season  
+PTS/S - Average number of points earned per sets played  
+K - Total number of kills, a kill is when a player scores a point without the ball being returned from the opposite team  
+K/S - Average number of kills executed per sets played  
+E - Total number of errors  
+TA - Total attacks, an attack is when a player jumps and spikes the ball downward over the net in an attempt to score a kill  
+PCT - Attack percentage is calculated by subtracting kills minus errors then dividing by total number of attacks  
+A - Total number of assists where the player threw the ball to a teammate who then won the point  
+A/S - Average number of assists per sets played  
+SA - Total number of service aces, an ace means the serving team won the point before the receiving team could return the ball over the net  
+SA/S - Average number of service aces per sets played  
+SE - Total number of service errors, meaning the serve did not throw the ball over the net or threw it out of bounds  
 
 The following are the different positions on the volleyball team, which may be referenced in a data visualization or table.
 
-MB - Middle Blocker: The tallest person on the team. The middle blocker aims to block attacks from the other team.
-L - Libero: An exclusive back-row player who is not allowed to approach the net. The libero specializes in getting digs by receiving attacks from the other team.
-DS - Defensive Specialist: A substitute for any player on the court who focuses on ball passing and control.
-OH - Outside Hitter: The hitter on the left side of the net. Both hitters aim to get attacks or kills. 
-S - Setter: A setter will 'set' the ball for a hitter to get an attack or a kill. The setter typically gets the second touch on their side
-RS - Opposite Hitter: The hitter on the right side of the net. Both hitters aim to get attacks or kills. 
+MB - Middle Blocker: The tallest person on the team. The middle blocker aims to block attacks from the other team.  
+L - Libero: An exclusive back-row player who is not allowed to approach the net. The libero specializes in getting digs by receiving attacks from the other team.  
+DS - Defensive Specialist: A substitute for any player on the court who focuses on ball passing and control.  
+OH - Outside Hitter: The hitter on the left side of the net. Both hitters aim to get attacks or kills.  
+S - Setter: A setter will 'set' the ball for a hitter to get an attack or a kill. The setter typically gets the second touch on their side  
+RS - Opposite Hitter: The hitter on the right side of the net. Both hitters aim to get attacks or kills.  
 
 
 Some players have more than one position. In these cases, the player's data will be included twice, once for each position, for comparisons that relate to the player's position. 
@@ -66,7 +66,7 @@ Table 4 - Summary Statistics of Error for Each School (OSU and PSU)
 All code should be written according to a Style Guide of your choice. List this Style Guide as a code comment in your first code chunk.
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE, warning = FALSE)
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE, fig.align = 'right')
 # List Style Guide in this code chunk
 #BOAST STYLE GUIDE OR GOOGLE'S R GUIDE
 library(rvest)
@@ -174,7 +174,7 @@ psuSepPos <- psuSepPos %>%
 
 ```
 
-```{r OSURosterStatsTable}
+```{r OSURosterStatsTable, warning = FALSE}
 url <- c('https://s3.us-east-2.amazonaws.com/sidearm.nextgen.sites/ohiostatebuckeyes.com/stats/wvb/2023/pdf/cume.pdf')
 raw_text <- pdf_text(url)
 
@@ -341,6 +341,9 @@ setsSummaryTable2 %>%
   align = c("l", rep("c", 6)),
   font_size = 14
   ) %>%
+  kableExtra::kable_styling(
+  latex_options = c('HOLD_position', 'scale_down')) %>%
+  #scales table to stay on the page
   kableExtra::kable_classic()
   # This section utilizes the kableExtra package to create a clear summary
   # table for the viewer to look at.
@@ -369,6 +372,8 @@ ggplot(setsSummaryTable2) +
   aes(x = Elig., y = mean, group = count) +
   # Elig. (grade) will be on the horizontal axis, mean will be on the 
   # vertical axis, and the data will overall be grouped by count.
+  scale_x_discrete(limits = c('Fr.', 'So.', 'Jr.', 'Sr.', 'Sr.+', 'Gr.')) +
+  #the bars will be ordered by increasing year
   geom_col(fill = "#3F567E") +
   # geom_col will display a bar chart.
   labs(
@@ -380,6 +385,7 @@ ggplot(setsSummaryTable2) +
   ) +
   theme_minimal()
 fig.align = "left"
+
 
 ```
 From this data visualization, the viewer can see that the mean number of sets played was lowest for the freshman compared to the other class groups. The mean number of sets played was highest for the seniors, meaning that on average, the seniors played the most sets overall. An important item to note is that the mean number of sets played is higher for the sophomores than it is for the juniors, even though the juniors are older. In this case, the juniors don't play as much as the sophomores, on average, showing that the volleyball team does not choose who plays based on seniority.
@@ -425,6 +431,9 @@ PosErrorsSummaryTable2 %>%
   align = c("l", rep("c", 6)),
   font_size = 14
   ) %>%
+  kableExtra::kable_styling(
+  latex_options = c('HOLD_position', 'scale_down')) %>%
+  #scales table to stay on the page
   kableExtra::kable_classic()
   # This section utilizes the kableExtra package to create a clear summary
   # table for the viewer to look at.
@@ -474,6 +483,9 @@ statsSummaryTable2 %>%
   align = c("l", rep("c", 6)),
   font_size = 14
   ) %>%
+  kableExtra::kable_styling(
+  latex_options = c('HOLD_position', 'scale_down')) %>%
+  #scales table to stay on the page
   kableExtra::kable_classic()
   # This section utilizes the kableExtra package to create a clear summary
   # table for the viewer to look at.
@@ -648,6 +660,9 @@ errorsSummaryTable2 %>%
   align = c("l", rep("c", 6)),
   font_size = 14
   ) %>%
+  kableExtra::kable_styling(
+  latex_options = c('HOLD_position', 'scale_down')) %>%
+  #scales table to stay on the page
   kableExtra::kable_classic()
   # This section utilizes the kableExtra package to create a clear summary
   # table for the viewer to look at.
