@@ -82,9 +82,8 @@ Table 4 - Summary Statistics of Error for Each School (OSU and PSU)
 All code should be written according to a Style Guide of your choice. List this Style Guide as a code comment in your first code chunk.
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE, fig.align = 'right')
-# List Style Guide in this code chunk
-#BOAST STYLE GUIDE OR GOOGLE'S R GUIDE
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE, fig.align = 'left', dpi = 300)
+# We used the BOAST style guide 
 library(rvest)
 library(ggplot2)
 library(knitr)
@@ -191,7 +190,8 @@ psuSepPos <- psuSepPos %>%
 ```
 
 ```{r OSURosterStatsTable, warning = FALSE}
-url <- c('https://s3.us-east-2.amazonaws.com/sidearm.nextgen.sites/ohiostatebuckeyes.com/stats/wvb/2023/pdf/cume.pdf')
+url <- c(
+'https://s3.us-east-2.amazonaws.com/sidearm.nextgen.sites/ohiostatebuckeyes.com/stats/wvb/2023/pdf/cume.pdf')
 raw_text <- pdf_text(url)
 
 #the following code was found on the internet to harvest the osu data from a pdf
@@ -224,10 +224,13 @@ osuFixOne$Player <- str_sub(osuFixOne$Player, end = -4)
 osuFixOne <- osuFixOne %>%
   select(!'PTS')
 #removes the 'PTS' column
-colnames(osuFixOne) <- c('#', 'Player', 'K', 'K.S', 'E', 'TA', 'Pct', 'A', 'A.S', 'SA', 'SE', 'SA.S', 'RE', 'DIG', 'DIG.S', 'BS', 'BA', 'BLK', 'BLK.S', 'BE', 'BHE', 'PTS', 'SP')
+colnames(osuFixOne) <- c('#', 'Player', 'K', 'K.S', 'E', 'TA', 'Pct', 'A', 'A.S', 'SA', 
+  'SE', 'SA.S', 'RE', 'DIG', 'DIG.S', 'BS', 'BA', 'BLK', 'BLK.S', 'BE', 'BHE',
+  'PTS', 'SP')
 #shifts the column headers to reflect the correct data
 osuFixOne <- osuFixOne %>%
-  select('#', 'Player', 'SP', 'K', 'K.S', 'E', 'TA', 'Pct', 'A', 'A.S', 'SA', 'SE', 'SA.S', 'RE', 'DIG', 'DIG.S', 'BS', 'BA', 'BLK', 'BLK.S', 'BE', 'BHE', 'PTS')
+  select('#', 'Player', 'SP', 'K', 'K.S', 'E', 'TA', 'Pct', 'A', 'A.S', 'SA', 'SE', 
+  'SA.S', 'RE', 'DIG', 'DIG.S', 'BS', 'BA', 'BLK', 'BLK.S', 'BE', 'BHE', 'PTS')
 #changes the order of the columns to the original order
 
 osuFixOthers <- osuRawStats[7:12, ] %>%
@@ -241,7 +244,9 @@ osuFixOthers$X. <- str_sub(osuFixOthers$X., end = 3)
 osuFixOthers <- osuFixOthers %>%
   select(!'PTS')
 #removes the 'PTS' column
-colnames(osuFixOthers) <- c('#', 'SP', 'K', 'K.S', 'E', 'TA', 'Pct', 'A', 'A.S', 'SA', 'SE', 'SA.S', 'RE', 'DIG', 'DIG.S', 'BS', 'BA', 'BLK', 'BLK.S', 'BE', 'BHE', 'PTS', 'Player')
+colnames(osuFixOthers) <- c('#', 'SP', 'K', 'K.S', 'E', 'TA', 'Pct', 'A', 'A.S', 'SA', 
+  'SE', 'SA.S', 'RE', 'DIG', 'DIG.S', 'BS', 'BA', 'BLK', 'BLK.S', 'BE', 'BHE',
+  'PTS', 'Player')
 #shifts the column names to reflect the correct data
 
 
@@ -274,15 +279,18 @@ osuStats <- osuStats %>%
 #saves all columns except for Player as a numeric type
 
 osuJoin <- osuStats %>%
-  select('#', 'Player', 'SP', 'K', 'K.S', 'E', 'TA', 'Pct', 'A', 'A.S', 'SA', 'SE', 'SA.S', 'PTS') %>%
+  select('#', 'Player', 'SP', 'K', 'K.S', 'E', 'TA', 'Pct', 'A', 'A.S', 'SA', 'SE', 
+  'SA.S', 'PTS') %>%
   #selects the columns which are in common with the psu data
   mutate('School' = 'OSU')
 #adds a column to save the school of each player
-colnames(osuJoin) <- c('#', 'Player', 'SP', 'K', 'K/S', 'E', 'TA', 'PCT', 'A', 'A/S', 'SA', 'SE', 'SA/S', 'PTS', 'School')
+colnames(osuJoin) <- c('#', 'Player', 'SP', 'K', 'K/S', 'E', 'TA', 'PCT', 'A', 'A/S', 
+  'SA', 'SE', 'SA/S', 'PTS', 'School')
 #changes the names of the columns to match the psu data
 
 psuJoin <- psuOffensive %>%
-  select('#', 'Player', 'SP', 'K', 'K/S', 'E', 'TA', 'PCT', 'A', 'A/S', 'SA', 'SE', 'SA/S', 'PTS') %>%
+  select('#', 'Player', 'SP', 'K', 'K/S', 'E', 'TA', 'PCT', 'A', 'A/S', 'SA', 'SE', 
+  'SA/S', 'PTS') %>%
   #selects the columns which are in common with the osu data
   mutate('School' = 'PSU')
 #adds a column to save the school of each player
@@ -304,7 +312,9 @@ ggplot(psuOffensiveRoster) + #Plot based on the PSU offensive roster
     x = "Height (in.)",
     y = "Points",
     title = "Total Points Versus Player Height",
-    subtitle = "2023 Penn State Womens Volleyball season" #Addition of a subtitle allows the reader to understand exactly what data is being measured
+    subtitle = "2023 Penn State Womens Volleyball season" 
+    #Addition of a subtitle allows the reader to understand exactly
+    #what data is being measured
   ) +
   theme_minimal() +
   theme(
@@ -349,7 +359,8 @@ setsSummaryTable2 <- setsSummaryTable %>%
 
 setsSummaryTable2 %>%
   kable(
-  col.names = c("Grade","Count", "Minimum", "First Quartile", "Median", "Third Quartile", "Maximum", "Arithmetic Mean", "Arithmetic Standard Deviation"),
+  col.names = c("Grade","Count", "Minimum", "First Quartile", "Median", "Third Quartile", 
+  "Maximum", "Arithmetic Mean", "Arithmetic Standard Deviation"),
   # Changes the column names to those listed above.
   caption = "Summary Statistics of Average Sets Played Per Grade",
   # Changes the title of the summary table.
@@ -439,7 +450,8 @@ PosErrorsSummaryTable2 <- PosErrorsSummaryTable %>%
 
 PosErrorsSummaryTable2 %>%
   kable(
-  col.names = c("Position","Count", "Minimum", "First Quartile", "Median", "Third Quartile", "Maximum", "Arithmetic Mean", "Arithmetic Standard Deviation"),
+  col.names = c("Position","Count", "Minimum", "First Quartile", "Median", 
+  "Third Quartile", "Maximum", "Arithmetic Mean", "Arithmetic Standard Deviation"),
   # Changes the column names to those listed above.
   caption = "Summary Statistics of Average Points Earned Per Position",
   # Changes the title of the summary table.
@@ -491,7 +503,8 @@ statsSummaryTable2 <- statsSummaryTable %>%
 
 statsSummaryTable2 %>%
   kable(
-  col.names = c("Position","Count", "Minimum", "First Quartile", "Median", "Third Quartile", "Maximum", "Arithmetic Mean", "Arithmetic Standard Deviation"),
+  col.names = c("Position","Count", "Minimum", "First Quartile", "Median", 
+  "Third Quartile", "Maximum", "Arithmetic Mean", "Arithmetic Standard Deviation"),
   # Changes the column names to those listed above.
   caption = "Summary Statistics of Average Points Earned Per Position",
   # Changes the title of the summary table.
@@ -574,7 +587,8 @@ ggplot(psuAndOsu) +
     x = "Total Kills",
     y = "Total Attacks",
     title = "Total Kills Versus Total Attacks Per Player",
-    subtitle = "(2023 Women's Volleyball Statistics for Penn State University and Ohio State University)",
+    subtitle = "(2023 Women's Volleyball Statistics for Penn State University and 
+    Ohio State University)",
     color = "School"
   ) +
   theme_minimal()+
@@ -601,7 +615,8 @@ ggplot(psuAndOsu) +
     x = "Kills Per Set Per Player",
     y = "Service Aces Per Set Per Player",
     title = "Service Aces Per Set Per Player Versus Kills Per Set Per Player",
-    subtitle = "(2023 Women's Volleyball Statistics for Penn State University and Ohio State University)",
+    subtitle = "(2023 Women's Volleyball Statistics for Penn State University and 
+    Ohio State University)",
     color = "School"
   ) +
   theme_minimal()
@@ -628,7 +643,8 @@ ggplot(psuAndOsu) +
     x = "Total Errors",
     y = "Count",
     title = "Total Errors Per Player",
-    subtitle = "(2023 Women's Volleyball Statistics for Penn State University and Ohio State University)"
+    subtitle = "(2023 Women's Volleyball Statistics for Penn State University and 
+    Ohio State University)"
   ) +
   # Details the theme chosen (black and white) and once again the facet is school to see
   # the visualizations side by side.
@@ -668,7 +684,8 @@ errorsSummaryTable2 <- errorsSummaryTable %>%
 
 errorsSummaryTable2 %>%
   kable(
-  col.names = c("School","Count", "Minimum", "First Quartile", "Median", "Third Quartile", "Maximum", "Arithmetic Mean", "Arithmetic Standard Deviation"),
+  col.names = c("School","Count", "Minimum", "First Quartile", "Median", 
+  "Third Quartile", "Maximum", "Arithmetic Mean", "Arithmetic Standard Deviation"),
   # Changes the column names to those listed above.
   caption = "Summary Statistics of Total Errors Made Per School Per Player",
   # Changes the title of the summary table.
@@ -689,11 +706,11 @@ The summary table displayed above aids the viewer in seeing the numerical values
 
 
 ## Code Appendix
-``` {r codeAppedix}
-#This is the code chunk for the code appendix so viewers can view all the code at the end of the RMD file
-#| ref.label = knitr::all_labels(),
-#| echo = TRUE,
-#| eval = FALSE
+``` {r codeAppendix,ref.label = knitr::all_labels(), echo = TRUE, eval = FALSE}
+
+#This is the code chunk for the code appendix so viewers can view all the code 
+#at the end of the RMD file
+
 ```
 
 
