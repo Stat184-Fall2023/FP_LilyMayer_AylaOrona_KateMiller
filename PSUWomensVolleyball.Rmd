@@ -14,6 +14,23 @@ Volleyball is a game that consists of two teams each with six players hitting a 
 
 Each game consists of five sets. In order to win a set a team must score 25 points. One score is equal to one point. To win the whole game a team must win three out of the five sets.  
 
+### Research Questions
+
+What is the connection between amount of points a player scores versus their height?  
+What are the average stats for each position?  
+What is the average number of sets played based on college year?  
+How does PSU compare to OSU in total kills per set versus the total attacks per set per player?  
+
+### Data Orgin and Data Wrangling Process
+
+Describe your data sources (where they come from, what was their original purpose, who/what comprise the cases in each).
+Notes:
+- PSU V. Ohio State Portion: We gathered both the Penn state's and Ohio State's women volleyball team stats. We googled each roster of both teams and merged them together. The PSU stat table did not have the position of each player, so to match each player with their position, we joined a PSU Roster that contained players and their position with the PSU Stat table. We then compared Penn state and Ohio State's stats.
+
+- Only PSU Portion: We used the internet to find the roster and stats of Penn State's Women's Volleyball team. Since the PSU stat roster did not have the position of each player, we merged the stats table with the team roster containing the player positions. We then compared data within the PSU team.
+
+Describe what attributes you'll focus your analysis on (mention if they are part of your data sets or if you created them out of your data sets).
+
 ### Volleyball Terms Used in This Document  
 
 
@@ -48,7 +65,6 @@ RS - Opposite Hitter: The hitter on the right side of the net. Both hitters aim 
 
 Some players have more than one position. In these cases, the player's data will be included twice, once for each position, for comparisons that relate to the player's position. 
 
-### Research Questions
 
 ### Table of Contents for Visualizations and Tables
 Figure 1 - Total Points Versus Player Height (PSU)  
@@ -288,7 +304,7 @@ ggplot(psuOffensiveRoster) + #Plot based on the PSU offensive roster
     x = "Height (in.)",
     y = "Points",
     title = "Total Points Versus Player Height",
-    subtitle = "2023 Penn State Womens Volleyball season" #Addition of a subtitle 
+    subtitle = "2023 Penn State Womens Volleyball season" #Addition of a subtitle allows the reader to understand exactly what data is being measured
   ) +
   theme_minimal() +
   theme(
@@ -672,40 +688,12 @@ View(errorsSummaryTable2)
 The summary table displayed above aids the viewer in seeing the numerical values associated with the errors data visualization (scatter plot) from before. Penn State's player with the maximum number of errors had 178 errors, where Ohio State's player with the maximum number of errors had 107. Furthermore, Penn State had a higher arithmetic mean of errors, showing that on average, they had a higher number of errors than Ohio State did. The data for OSU is only for 12 individuals, whereas the data for PSU is for 17, as also described in the scatter plot. This is how Penn State came to have a median of 1, since many players do not play and therefore have 0 errors.
 
 
-## Research Questions
+## Code Appendix
+``` {r codeAppedix}
+#This is the code chunk for the code appendix so viewers can view all the code at the end of the RMD file
+#| ref.label = knitr::all_labels(),
+#| echo = TRUE,
+#| eval = FALSE
+```
 
--What is the connection between amount of points a player scores versus their height?
--What are the average stats for each position?
--What is the average number of sets played based on college year?
--How does PSU compare in points scored/number of kills to OSU?
-
-## Read in data and perform necessary wrangling and cleaning
-Describe your data sources (where they come from, what was their original purpose, who/what comprise the cases in each).
-Notes:
-- PSU V. Ohio State Portion: We gathered both the Penn state's and Ohio State's women volleyball team stats. We googled each roster of both teams and merged them together. The PSU stat table did not have the position of each player, so to match each player with their position, we joined a PSU Roster that contained players and their position with the PSU Stat table. We then compared Penn state and Ohio State's stats.
-
-- Only PSU Portion: We used the internet to find the roster and stats of Penn State's Women's Volleyball team. Since the PSU stat roster did not have the position of each player, we merged the stats table with the team roster containing the player positions. We then compared data within the PSU team.
-
-Describe what attributes you'll focus your analysis on (mention if they are part of your data sets or if you created them out of your data sets).
-
-- Visualizations:
-- Total points scored vs. height
-- Average stats for each position
-- Average number of sets played for each college year
-- PSU vs. OSU in total points or kills
-
-
-## Conduct Exploratory Data Analysis
-
-
-
-
-All outputs should be accompanied by narrative text to explain what the reader should be seeing.
-
-Create multiple data visualizations that assist both the team and readers in understanding the data.
-Data visualizations should show a variety of your skills and geometries.
-
-Create at least one visual table (not a display of raw data) that assists both the team and readers in understanding the data.
-
-Have narrative text explaining every data visualization and table as well as setting a framework.
 
