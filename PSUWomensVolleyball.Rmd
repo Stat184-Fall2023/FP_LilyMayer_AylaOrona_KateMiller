@@ -350,7 +350,7 @@ setsSummaryTable2 %>%
 
 View(setsSummaryTable2)
 fig.align = "left"
-# Mutate function, freshman is first year, etc. 
+ 
 ```
 The summary table shown above provides the 5 number summary statistics for number of sets played based on grade (year in school). It also displays the amount of players in each grade, as well as the mean and standard deviation for the number of sets played in each grade. From the summary table, we can see that the freshman had the lowest number of sets played, at 2 sets. The sophomores and seniors had the same maximum number of sets played at 116, though the seniors had a higher mean of total sets played. We can also see that the seniors have the greatest number of starters.
   
@@ -688,11 +688,7 @@ Notes:
 
 Describe what attributes you'll focus your analysis on (mention if they are part of your data sets or if you created them out of your data sets).
 
-- Visualizations:
-- Total points scored vs. height
-- Average stats for each position
-- Average number of sets played for each college year
-- PSU vs. OSU in total points or kills
+
 
 
 ## Conduct Exploratory Data Analysis
