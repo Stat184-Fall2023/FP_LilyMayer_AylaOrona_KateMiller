@@ -12,7 +12,7 @@ The following document aims to provide details on Penn State Women's Volleyball 
 
 Volleyball is a game that consists of two teams each with six players hitting a ball over a net to score points. Each play starts by a setter on one team hitting the ball over the net. After the ball is served, each team is allowed to touch the ball three times before the ball must go over the net, however a single player may not hit the ball two times in a row. Throughout the game, when the ball hits the ground of an opposing teams side, points are given to the team that last hit the ball. Based on whichever team scored the point, they receive the ball to serve the next play.  
 
-Each game consists of five sets. In order to win a set a team must score 25 points. One score is equal to one point. To win the whole game a team must win three out of the five sets.  
+Each game consists of five sets. In order to win a set a team must score 25 points. One score is equal to one point. To win the whole game, a team must win three out of the five sets.  
 
 ### Research Questions
 
@@ -23,13 +23,16 @@ How does PSU compare to OSU in total kills per set versus the total attacks per 
 
 ### Data Orgin and Data Wrangling Process
 
-Describe your data sources (where they come from, what was their original purpose, who/what comprise the cases in each).
-Notes:
-- PSU V. Ohio State Portion: We gathered both the Penn state's and Ohio State's women volleyball team stats. We googled each roster of both teams and merged them together. The PSU stat table did not have the position of each player, so to match each player with their position, we joined a PSU Roster that contained players and their position with the PSU Stat table. We then compared Penn state and Ohio State's stats.
+PSU V. Ohio State Portion: We gathered both the Penn state's and Ohio State's women volleyball team stats. We searched the internet for the rosters of both teams and merged them together. The PSU stat table did not have the position of each player, so to match each player with their position, we joined a PSU Roster that contained players and their position with the PSU Stat table. We then compared Penn state and Ohio State's stats.
 
-- Only PSU Portion: We used the internet to find the roster and stats of Penn State's Women's Volleyball team. Since the PSU stat roster did not have the position of each player, we merged the stats table with the team roster containing the player positions. We then compared data within the PSU team.
+Only PSU Portion: We used the internet to find the roster and stats of Penn State's Women's Volleyball team. Since the PSU stat roster did not have the position of each player, we merged the stats table with the team roster containing the player positions. We then compared data within the PSU team.
 
-Describe what attributes you'll focus your analysis on (mention if they are part of your data sets or if you created them out of your data sets).
+For the total attacks per set (TA/S) visualizations, we had to make the TA/S variable by dividing the value of the TA (total attack) variable and the sets played variable for each player. We also added the "school" variable in for each player to help us when comparing volleyball stats from OSU and PSU.
+
+The roster data's original purpose was to provide a women's volleyball roster to online viewers with generic information about the player's year and position. The statistics data's purpose was to provide an online viewer with information a player's talents on the court in the areas of kills, errors, aces, etc. We are using the data to delve deeper into the relationships between some of these variables.
+
+For this project, we specifically focused on the attributes of height, position, total attacks, sets played, grade (age), kills, points, and errors. Each of these variables was included in the original data. 
+
 
 ### Volleyball Terms Used in This Document  
 
@@ -79,7 +82,6 @@ Figure 6 - Service Aces Versus Kills Per Set Per Player (OSU and PSU)
 Figure 7 - Total Errors Per Player by School (OSU and PSU)  
 Table 4 - Summary Statistics of Error for Each School (OSU and PSU)  
 
-All code should be written according to a Style Guide of your choice. List this Style Guide as a code comment in your first code chunk.
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE, fig.align = 'left', dpi = 300)
@@ -327,7 +329,7 @@ fig.align = "left"
 
   
   
-The visualization shown above is the comparison of each players height versus their total amount of points for this season. As seen in the graph, the player that has scored the most amount of points this season is 73 in. (6'2 ft) with points ranging in the 500s. The players with the most amount of points range from 73 in (6'2 ft) to 75 in (6'4 ft). We can also see on the graph that the most popular height of the team is 74 in. because they have the most amount of data points on 74in line.
+A player constitutes a case. The visualization shown above is the comparison of each players height versus their total amount of points for this season. As seen in the graph, the player that has scored the most amount of points this season is 73 in. (6'2 ft) with points ranging in the 500s. The players with the most amount of points range from 73 in (6'2 ft) to 75 in (6'4 ft). We can also see on the graph that the most popular height of the team is 74 in. because they have the most amount of data points on 74in line.
   
 #### Table 1
 ```{r averageSetsPlayedPerSchoolYearDataTable}
@@ -379,17 +381,9 @@ View(setsSummaryTable2)
 fig.align = "left"
  
 ```
-The summary table shown above provides the 5 number summary statistics for number of sets played based on grade (year in school). It also displays the amount of players in each grade, as well as the mean and standard deviation for the number of sets played in each grade. From the summary table, we can see that the freshman had the lowest number of sets played, at 2 sets. The sophomores and seniors had the same maximum number of sets played at 116, though the seniors had a higher mean of total sets played. We can also see that the seniors have the greatest number of starters.
+A player constitutes a case. The summary table shown above provides the 5 number summary statistics for number of sets played based on grade (year in school). It also displays the amount of players in each grade, as well as the mean and standard deviation for the number of sets played in each grade. From the summary table, we can see that the freshman had the lowest number of sets played, at 2 sets. The sophomores and seniors had the same maximum number of sets played at 116, though the seniors had a higher mean of total sets played. We can also see that the seniors have the greatest number of starters.
   
-```{r renamingEligibilityRows}
-# Reorder function
-# reorder(setsSummaryTable2$Grade, c(1, 4, 3, 5, 6, 2))
-
-
-```
-  
-  
-  
+    
 #### Figure 2
 ```{r averageSetsPlayedPerSchoolYearDataVisualization}
 
@@ -415,7 +409,7 @@ fig.align = "left"
 
 
 ```
-From this data visualization, the viewer can see that the mean number of sets played was lowest for the freshman compared to the other class groups. The mean number of sets played was highest for the seniors, meaning that on average, the seniors played the most sets overall. An important item to note is that the mean number of sets played is higher for the sophomores than it is for the juniors, even though the juniors are older. In this case, the juniors don't play as much as the sophomores, on average, showing that the volleyball team does not choose who plays based on seniority.
+A player constitutes a case. From this data visualization, the viewer can see that the mean number of sets played was lowest for the freshman compared to the other class groups. The mean number of sets played was highest for the seniors, meaning that on average, the seniors played the most sets overall. An important item to note is that the mean number of sets played is higher for the sophomores than it is for the juniors, even though the juniors are older. In this case, the juniors don't play as much as the sophomores, on average, showing that the volleyball team does not choose who plays based on seniority.
   
     
       
@@ -453,7 +447,7 @@ PosErrorsSummaryTable2 %>%
   col.names = c("Position","Count", "Minimum", "First Quartile", "Median", 
   "Third Quartile", "Maximum", "Arithmetic Mean", "Arithmetic Standard Deviation"),
   # Changes the column names to those listed above.
-  caption = "Summary Statistics of Average Points Earned Per Position",
+  caption = "Summary Statistics of Average Errors Made Per Position",
   # Changes the title of the summary table.
   booktabs = TRUE,
   align = c("l", rep("c", 6)),
@@ -468,7 +462,7 @@ PosErrorsSummaryTable2 %>%
 fig.align = "left"
 View(PosErrorsSummaryTable2)
 ```
-From this visualization, we can see that position does play a part in who makes the most errors. The Defensive Specialist (DS) and Libero (L) positions don't have any errors, and the setters (S) have minimal errors, with the maximum being 17. The Outside Hitter (OH), often the one spiking the ball and attempting to win the point, have the most errors and the highest mean number of errors. Right Side (RS) players and Middle Blockers (MB) also have many errors, since they are also right at the net. The players who are not at the net, such as DS and L, are going to have less errors since they are not trying to win the point, merely keep the ball in play. 
+A player constitutes a case. From this visualization, we can see that position does play a part in who makes the most errors. The Defensive Specialist (DS) and Libero (L) positions don't have any errors, and the setters (S) have minimal errors, with the maximum being 17. The Outside Hitter (OH), often the one spiking the ball and attempting to win the point, have the most errors and the highest mean number of errors. Right Side (RS) players and Middle Blockers (MB) also have many errors, since they are also right at the net. The players who are not at the net, such as DS and L, are going to have less errors since they are not trying to win the point, merely keep the ball in play. 
   
     
       
@@ -522,7 +516,7 @@ fig.align = "left"
 View(statsSummaryTable2)
 
 ```
-From the visualization above, one can gather that the number of points depends on where the player is on the court, which depends on their position. For example, while there's only two players who have middle blocker (MB) listed on their position, they have scored the highest average number of points. However, the individual who has the most number of points belongs to the outside hitter (OH), with a maximum of 567.5 points scored. The right side (RS) players also have a relatively high average of points scored, making the three positions with the highest average scores to be the MB, OH, and RS positions. We can see that the Liberos (L) and Defensive Specialist (DS) positions, as well as the setter (S) often don't score. Liberos and Defensive Specialists are often in the rear of the court, which is why they do not score points as much as the right side, outside hitter, and middle blocker, since those are the positions right at the net, where the ball is often spiked. This is depicted in the summary table. 
+A player constitutes a case. From the visualization above, one can gather that the number of points depends on where the player is on the court, which depends on their position. For example, while there's only two players who have middle blocker (MB) listed on their position, they have scored the highest average number of points. However, the individual who has the most number of points belongs to the outside hitter (OH), with a maximum of 567.5 points scored. The right side (RS) players also have a relatively high average of points scored, making the three positions with the highest average scores to be the MB, OH, and RS positions. We can see that the Liberos (L) and Defensive Specialist (DS) positions, as well as the setter (S) often don't score. Liberos and Defensive Specialists are often in the rear of the court, which is why they do not score points as much as the right side, outside hitter, and middle blocker, since those are the positions right at the net, where the ball is often spiked. This is depicted in the summary table. 
   
     
       
@@ -544,7 +538,7 @@ ggplot(psuSepPos) +
 fig.align = "left"
 
 ```
-The boxplot above describes the different heights of the different players grouped by their position on Penn State's Women's Volleyball team. The shorter players on the team (depicted by a smaller inch size) are seen to be primarily the Defensive Specialist and the Libero. The tallest players are seen to be Middle Blockers, Outside Hitters, and Right Side. In this way, the tallest players are the ones closer to the net. The taller players have added height that aids them in achieving success in their specific position. Contrarily, the positions of Defensive Specialist and Libero do not necessarily require great height, since they are farther back on the court. The range in height of the Setters (S) varies greatly, showing that many different women, regardless of height, can be successful at that position. 
+A player constitutes a case. The boxplot above describes the different heights of the different players grouped by their position on Penn State's Women's Volleyball team. The shorter players on the team (depicted by a smaller inch size) are seen to be primarily the Defensive Specialist and the Libero. The tallest players are seen to be Middle Blockers, Outside Hitters, and Right Side. In this way, the tallest players are the ones closer to the net. The taller players have added height that aids them in achieving success in their specific position. Contrarily, the positions of Defensive Specialist and Libero do not necessarily require great height, since they are farther back on the court. The range in height of the Setters (S) varies greatly, showing that many different women, regardless of height, can be successful at that position. 
   
     
       
@@ -566,7 +560,7 @@ ggplot(psuSepPos) +
 fig.align = "left"
 
 ```
-The above data visualization depicts the potential correlation between kills per set per player and total attacks per set per player for Penn State's Women's Volleyball team. There is a general positive correlation between the two variables, showing that the players who have more attacks per set also tend to have more kills per set, and those who have less attacks are prone to less kills. This could be based on position, with those closer to the net often having a higher number of kills. 
+A player constitutes a case. The above data visualization depicts the potential correlation between kills per set per player and total attacks per set per player for Penn State's Women's Volleyball team. There is a general positive correlation between the two variables, showing that the players who have more attacks per set also tend to have more kills per set, and those who have less attacks are prone to less kills. This could be based on position, with those closer to the net often having a higher number of kills. 
 
 How does this data compare to other collegiate volleyball teams, specifically in Division 1, such as Ohio State University? The visualization below depicts the Total Kills Per Set Versus the Total Attacks Per Set Per Player for both teams (OSU and PSU). For this, we used the total attacks and total kills instead of the rate per set for both to see a data visualization that encompassed the conclusion of the season by providing the totals from the end of the season. 
   
@@ -597,7 +591,7 @@ fig.align = "left"
 # The facet was school so that the viewer could see the visualizations side by side
 # for proper comparison. 
 ```
-From this visualization, the viewer can see that both teams have a general positive correlation between total attacks and total kills per player. This provides an inference that there may be strong correlation between these two variables for numerous other collegiate teams as well. As we can see, Penn State has two players who have higher total kills and higher total attacks than any Ohio State players. However, the other Penn State players appear to have very similar attacks and kills to the Ohio State players. When creating the visualization, we made sure to have the same scale for both teams.
+A player constitutes a case. From this visualization, the viewer can see that both teams have a general positive correlation between total attacks and total kills per player. This provides an inference that there may be strong correlation between these two variables for numerous other collegiate teams as well. As we can see, Penn State has two players who have higher total kills and higher total attacks than any Ohio State players. However, the other Penn State players appear to have very similar attacks and kills to the Ohio State players. When creating the visualization, we made sure to have the same scale for both teams.
   
     
       
@@ -623,7 +617,7 @@ ggplot(psuAndOsu) +
 fig.align = "left"
 
 ```
-The above data visualization depicts an interesting comparison between kills per set per player and aces per set per player, showing if whether those who have more kills also have more aces, and vice versa. A kill is when the player ends the point by hitting the ball into an area that the opposing team cannot get. An ace is when the player serves the ball, but no one on the opposing team is able to receive it. We were aiming to see whether those who had more kills, who are usually more aggressive, since points often come from speed and force of the ball, also used that aggression when serving. Aces would come about from high speed of the ball, though position on the court (where the ball lands/is aimed) is also a contributing factor. As seen in the scatter plot, there is no apparent correlation between aces per set and kills per set per player. Some individuals have a high number of aces, with very few kills, and others have a high number of kills with very few aces, for both teams. Many individuals are clustered around the lower left hand corner of the visualization, showing that they didn't have many aces or kills. When comparing the two different teams (OSU and PSU), one can see that Penn State has two individuals with a higher ace per set rate than the Ohio State players, whereas Ohio State has two individuals with a higher kill per set rate than the majority of Penn State players.
+A player constitutes a case. The above data visualization depicts an interesting comparison between kills per set per player and aces per set per player, showing if whether those who have more kills also have more aces, and vice versa. A kill is when the player ends the point by hitting the ball into an area that the opposing team cannot get. An ace is when the player serves the ball, but no one on the opposing team is able to receive it. We were aiming to see whether those who had more kills, who are usually more aggressive, since points often come from speed and force of the ball, also used that aggression when serving. Aces would come about from high speed of the ball, though position on the court (where the ball lands/is aimed) is also a contributing factor. As seen in the scatter plot, there is no apparent correlation between aces per set and kills per set per player. Some individuals have a high number of aces, with very few kills, and others have a high number of kills with very few aces, for both teams. Many individuals are clustered around the lower left hand corner of the visualization, showing that they didn't have many aces or kills. When comparing the two different teams (OSU and PSU), one can see that Penn State has two individuals with a higher ace per set rate than the Ohio State players, whereas Ohio State has two individuals with a higher kill per set rate than the majority of Penn State players.
   
     
       
@@ -653,7 +647,7 @@ ggplot(psuAndOsu) +
   facet_wrap(vars(School))
 fig.align = "left"
 ```
-The above visualization shows that there are numerous Penn State players that don't have any errors, which perhaps stems from Penn State having more benched players than Ohio State, since we can see that Penn State has a higher total number of players than OSU. However, Ohio State does have more individuals with minimal errors (in comparison with PSU), with only two individuals with errors exceeding 50. Contrarily, Penn State's players are more spread out, with 5 players exceeding 50 errors and with a couple more players exceeding 25 errors than OSU's team. This is further developed with the summary table of errors for both teams below. 
+A player constitutes a case. The above visualization shows that there are numerous Penn State players that don't have any errors, which perhaps stems from Penn State having more benched players than Ohio State, since we can see that Penn State has a higher total number of players than OSU. However, Ohio State does have more individuals with minimal errors (in comparison with PSU), with only two individuals with errors exceeding 50. Contrarily, Penn State's players are more spread out, with 5 players exceeding 50 errors and with a couple more players exceeding 25 errors than OSU's team. This is further developed with the summary table of errors for both teams below. 
   
     
       
@@ -702,24 +696,19 @@ errorsSummaryTable2 %>%
 fig.align = "left"
 View(errorsSummaryTable2)
 ```
-The summary table displayed above aids the viewer in seeing the numerical values associated with the errors data visualization (scatter plot) from before. Penn State's player with the maximum number of errors had 178 errors, where Ohio State's player with the maximum number of errors had 107. Furthermore, Penn State had a higher arithmetic mean of errors, showing that on average, they had a higher number of errors than Ohio State did. The data for OSU is only for 12 individuals, whereas the data for PSU is for 17, as also described in the scatter plot. This is how Penn State came to have a median of 1, since many players do not play and therefore have 0 errors.
+A player constitutes a case. The summary table displayed above aids the viewer in seeing the numerical values associated with the errors data visualization (scatter plot) from before. Penn State's player with the maximum number of errors had 178 errors, where Ohio State's player with the maximum number of errors had 107. Furthermore, Penn State had a higher arithmetic mean of errors, showing that on average, they had a higher number of errors than Ohio State did. The data for OSU is only for 12 individuals, whereas the data for PSU is for 17, as also described in the scatter plot. This is how Penn State came to have a median of 1, since many players do not play and therefore have 0 errors.
+
+# Conclusion
 
 
-## Code Appendix
+
+# Code Appendix
 ``` {r codeAppendix,ref.label = knitr::all_labels(), echo = TRUE, eval = FALSE}
+# This is the code chunk for the code appendix so viewers can view all the code 
+# at the end of the RMD file
 ```
-#This is the code chunk for the code appendix so viewers can view all the code 
-#at the end of the RMD file
 
 
-## Read in data and perform necessary wrangling and cleaning
-Describe your data sources (where they come from, what was their original purpose, who/what comprise the cases in each).
-Notes:
-- PSU V. Ohio State Portion: We gathered both the Penn state's and Ohio State's women volleyball team stats. We googled each roster of both teams and merged them together. The PSU stat table did not have the position of each player, so to match each player with their position, we joined a PSU Roster that contained players and their position with the PSU Stat table. We then compared Penn state and Ohio State's stats.
-
-- Only PSU Portion: We used the internet to find the roster and stats of Penn State's Women's Volleyball team. Since the PSU stat roster did not have the position of each player, we merged the stats table with the team roster containing the player positions. We then compared data within the PSU team.
-
-Describe what attributes you'll focus your analysis on (mention if they are part of your data sets or if you created them out of your data sets).
 
 
 
