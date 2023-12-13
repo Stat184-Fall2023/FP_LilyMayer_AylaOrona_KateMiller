@@ -14,6 +14,23 @@ Volleyball is a game that consists of two teams each with six players hitting a 
 
 Each game consists of five sets. In order to win a set a team must score 25 points. One score is equal to one point. To win the whole game a team must win three out of the five sets.  
 
+### Research Questions
+
+What is the connection between amount of points a player scores versus their height?  
+What are the average stats for each position?  
+What is the average number of sets played based on college year?  
+How does PSU compare to OSU in total kills per set versus the total attacks per set per player?  
+
+### Data Orgin and Data Wrangling Process
+
+Describe your data sources (where they come from, what was their original purpose, who/what comprise the cases in each).
+Notes:
+- PSU V. Ohio State Portion: We gathered both the Penn state's and Ohio State's women volleyball team stats. We googled each roster of both teams and merged them together. The PSU stat table did not have the position of each player, so to match each player with their position, we joined a PSU Roster that contained players and their position with the PSU Stat table. We then compared Penn state and Ohio State's stats.
+
+- Only PSU Portion: We used the internet to find the roster and stats of Penn State's Women's Volleyball team. Since the PSU stat roster did not have the position of each player, we merged the stats table with the team roster containing the player positions. We then compared data within the PSU team.
+
+Describe what attributes you'll focus your analysis on (mention if they are part of your data sets or if you created them out of your data sets).
+
 ### Volleyball Terms Used in This Document  
 
 
@@ -48,7 +65,6 @@ RS - Opposite Hitter: The hitter on the right side of the net. Both hitters aim 
 
 Some players have more than one position. In these cases, the player's data will be included twice, once for each position, for comparisons that relate to the player's position. 
 
-### Research Questions
 
 ### Table of Contents for Visualizations and Tables
 Figure 1 - Total Points Versus Player Height (PSU)  
@@ -66,9 +82,8 @@ Table 4 - Summary Statistics of Error for Each School (OSU and PSU)
 All code should be written according to a Style Guide of your choice. List this Style Guide as a code comment in your first code chunk.
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE, fig.align = 'right')
-# List Style Guide in this code chunk
-#BOAST STYLE GUIDE OR GOOGLE'S R GUIDE
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE, fig.align = 'left', dpi = 300)
+# We used the BOAST style guide 
 library(rvest)
 library(ggplot2)
 library(knitr)
@@ -175,7 +190,8 @@ psuSepPos <- psuSepPos %>%
 ```
 
 ```{r OSURosterStatsTable, warning = FALSE}
-url <- c('https://s3.us-east-2.amazonaws.com/sidearm.nextgen.sites/ohiostatebuckeyes.com/stats/wvb/2023/pdf/cume.pdf')
+url <- c(
+'https://s3.us-east-2.amazonaws.com/sidearm.nextgen.sites/ohiostatebuckeyes.com/stats/wvb/2023/pdf/cume.pdf')
 raw_text <- pdf_text(url)
 
 #the following code was found on the internet to harvest the osu data from a pdf
@@ -208,10 +224,13 @@ osuFixOne$Player <- str_sub(osuFixOne$Player, end = -4)
 osuFixOne <- osuFixOne %>%
   select(!'PTS')
 #removes the 'PTS' column
-colnames(osuFixOne) <- c('#', 'Player', 'K', 'K.S', 'E', 'TA', 'Pct', 'A', 'A.S', 'SA', 'SE', 'SA.S', 'RE', 'DIG', 'DIG.S', 'BS', 'BA', 'BLK', 'BLK.S', 'BE', 'BHE', 'PTS', 'SP')
+colnames(osuFixOne) <- c('#', 'Player', 'K', 'K.S', 'E', 'TA', 'Pct', 'A', 'A.S', 'SA', 
+  'SE', 'SA.S', 'RE', 'DIG', 'DIG.S', 'BS', 'BA', 'BLK', 'BLK.S', 'BE', 'BHE',
+  'PTS', 'SP')
 #shifts the column headers to reflect the correct data
 osuFixOne <- osuFixOne %>%
-  select('#', 'Player', 'SP', 'K', 'K.S', 'E', 'TA', 'Pct', 'A', 'A.S', 'SA', 'SE', 'SA.S', 'RE', 'DIG', 'DIG.S', 'BS', 'BA', 'BLK', 'BLK.S', 'BE', 'BHE', 'PTS')
+  select('#', 'Player', 'SP', 'K', 'K.S', 'E', 'TA', 'Pct', 'A', 'A.S', 'SA', 'SE', 
+  'SA.S', 'RE', 'DIG', 'DIG.S', 'BS', 'BA', 'BLK', 'BLK.S', 'BE', 'BHE', 'PTS')
 #changes the order of the columns to the original order
 
 osuFixOthers <- osuRawStats[7:12, ] %>%
@@ -225,7 +244,9 @@ osuFixOthers$X. <- str_sub(osuFixOthers$X., end = 3)
 osuFixOthers <- osuFixOthers %>%
   select(!'PTS')
 #removes the 'PTS' column
-colnames(osuFixOthers) <- c('#', 'SP', 'K', 'K.S', 'E', 'TA', 'Pct', 'A', 'A.S', 'SA', 'SE', 'SA.S', 'RE', 'DIG', 'DIG.S', 'BS', 'BA', 'BLK', 'BLK.S', 'BE', 'BHE', 'PTS', 'Player')
+colnames(osuFixOthers) <- c('#', 'SP', 'K', 'K.S', 'E', 'TA', 'Pct', 'A', 'A.S', 'SA', 
+  'SE', 'SA.S', 'RE', 'DIG', 'DIG.S', 'BS', 'BA', 'BLK', 'BLK.S', 'BE', 'BHE',
+  'PTS', 'Player')
 #shifts the column names to reflect the correct data
 
 
@@ -258,15 +279,18 @@ osuStats <- osuStats %>%
 #saves all columns except for Player as a numeric type
 
 osuJoin <- osuStats %>%
-  select('#', 'Player', 'SP', 'K', 'K.S', 'E', 'TA', 'Pct', 'A', 'A.S', 'SA', 'SE', 'SA.S', 'PTS') %>%
+  select('#', 'Player', 'SP', 'K', 'K.S', 'E', 'TA', 'Pct', 'A', 'A.S', 'SA', 'SE', 
+  'SA.S', 'PTS') %>%
   #selects the columns which are in common with the psu data
   mutate('School' = 'OSU')
 #adds a column to save the school of each player
-colnames(osuJoin) <- c('#', 'Player', 'SP', 'K', 'K/S', 'E', 'TA', 'PCT', 'A', 'A/S', 'SA', 'SE', 'SA/S', 'PTS', 'School')
+colnames(osuJoin) <- c('#', 'Player', 'SP', 'K', 'K/S', 'E', 'TA', 'PCT', 'A', 'A/S', 
+  'SA', 'SE', 'SA/S', 'PTS', 'School')
 #changes the names of the columns to match the psu data
 
 psuJoin <- psuOffensive %>%
-  select('#', 'Player', 'SP', 'K', 'K/S', 'E', 'TA', 'PCT', 'A', 'A/S', 'SA', 'SE', 'SA/S', 'PTS') %>%
+  select('#', 'Player', 'SP', 'K', 'K/S', 'E', 'TA', 'PCT', 'A', 'A/S', 'SA', 'SE', 
+  'SA/S', 'PTS') %>%
   #selects the columns which are in common with the osu data
   mutate('School' = 'PSU')
 #adds a column to save the school of each player
@@ -288,7 +312,9 @@ ggplot(psuOffensiveRoster) + #Plot based on the PSU offensive roster
     x = "Height (in.)",
     y = "Points",
     title = "Total Points Versus Player Height",
-    subtitle = "2023 Penn State Womens Volleyball season" #Addition of a subtitle 
+    subtitle = "2023 Penn State Womens Volleyball season" 
+    #Addition of a subtitle allows the reader to understand exactly
+    #what data is being measured
   ) +
   theme_minimal() +
   theme(
@@ -333,7 +359,8 @@ setsSummaryTable2 <- setsSummaryTable %>%
 
 setsSummaryTable2 %>%
   kable(
-  col.names = c("Grade","Count", "Minimum", "First Quartile", "Median", "Third Quartile", "Maximum", "Arithmetic Mean", "Arithmetic Standard Deviation"),
+  col.names = c("Grade","Count", "Minimum", "First Quartile", "Median", "Third Quartile", 
+  "Maximum", "Arithmetic Mean", "Arithmetic Standard Deviation"),
   # Changes the column names to those listed above.
   caption = "Summary Statistics of Average Sets Played Per Grade",
   # Changes the title of the summary table.
@@ -423,7 +450,8 @@ PosErrorsSummaryTable2 <- PosErrorsSummaryTable %>%
 
 PosErrorsSummaryTable2 %>%
   kable(
-  col.names = c("Position","Count", "Minimum", "First Quartile", "Median", "Third Quartile", "Maximum", "Arithmetic Mean", "Arithmetic Standard Deviation"),
+  col.names = c("Position","Count", "Minimum", "First Quartile", "Median", 
+  "Third Quartile", "Maximum", "Arithmetic Mean", "Arithmetic Standard Deviation"),
   # Changes the column names to those listed above.
   caption = "Summary Statistics of Average Points Earned Per Position",
   # Changes the title of the summary table.
@@ -475,7 +503,8 @@ statsSummaryTable2 <- statsSummaryTable %>%
 
 statsSummaryTable2 %>%
   kable(
-  col.names = c("Position","Count", "Minimum", "First Quartile", "Median", "Third Quartile", "Maximum", "Arithmetic Mean", "Arithmetic Standard Deviation"),
+  col.names = c("Position","Count", "Minimum", "First Quartile", "Median", 
+  "Third Quartile", "Maximum", "Arithmetic Mean", "Arithmetic Standard Deviation"),
   # Changes the column names to those listed above.
   caption = "Summary Statistics of Average Points Earned Per Position",
   # Changes the title of the summary table.
@@ -558,7 +587,8 @@ ggplot(psuAndOsu) +
     x = "Total Kills",
     y = "Total Attacks",
     title = "Total Kills Versus Total Attacks Per Player",
-    subtitle = "(2023 Women's Volleyball Statistics for Penn State University and Ohio State University)",
+    subtitle = "(2023 Women's Volleyball Statistics for Penn State University and 
+    Ohio State University)",
     color = "School"
   ) +
   theme_minimal()+
@@ -585,7 +615,8 @@ ggplot(psuAndOsu) +
     x = "Kills Per Set Per Player",
     y = "Service Aces Per Set Per Player",
     title = "Service Aces Per Set Per Player Versus Kills Per Set Per Player",
-    subtitle = "(2023 Women's Volleyball Statistics for Penn State University and Ohio State University)",
+    subtitle = "(2023 Women's Volleyball Statistics for Penn State University and 
+    Ohio State University)",
     color = "School"
   ) +
   theme_minimal()
@@ -612,7 +643,8 @@ ggplot(psuAndOsu) +
     x = "Total Errors",
     y = "Count",
     title = "Total Errors Per Player",
-    subtitle = "(2023 Women's Volleyball Statistics for Penn State University and Ohio State University)"
+    subtitle = "(2023 Women's Volleyball Statistics for Penn State University and 
+    Ohio State University)"
   ) +
   # Details the theme chosen (black and white) and once again the facet is school to see
   # the visualizations side by side.
@@ -652,7 +684,8 @@ errorsSummaryTable2 <- errorsSummaryTable %>%
 
 errorsSummaryTable2 %>%
   kable(
-  col.names = c("School","Count", "Minimum", "First Quartile", "Median", "Third Quartile", "Maximum", "Arithmetic Mean", "Arithmetic Standard Deviation"),
+  col.names = c("School","Count", "Minimum", "First Quartile", "Median", 
+  "Third Quartile", "Maximum", "Arithmetic Mean", "Arithmetic Standard Deviation"),
   # Changes the column names to those listed above.
   caption = "Summary Statistics of Total Errors Made Per School Per Player",
   # Changes the title of the summary table.
@@ -672,12 +705,12 @@ View(errorsSummaryTable2)
 The summary table displayed above aids the viewer in seeing the numerical values associated with the errors data visualization (scatter plot) from before. Penn State's player with the maximum number of errors had 178 errors, where Ohio State's player with the maximum number of errors had 107. Furthermore, Penn State had a higher arithmetic mean of errors, showing that on average, they had a higher number of errors than Ohio State did. The data for OSU is only for 12 individuals, whereas the data for PSU is for 17, as also described in the scatter plot. This is how Penn State came to have a median of 1, since many players do not play and therefore have 0 errors.
 
 
-## Research Questions
+## Code Appendix
+``` {r codeAppendix,ref.label = knitr::all_labels(), echo = TRUE, eval = FALSE}
+```
+#This is the code chunk for the code appendix so viewers can view all the code 
+#at the end of the RMD file
 
--What is the connection between amount of points a player scores versus their height?
--What are the average stats for each position?
--What is the average number of sets played based on college year?
--How does PSU compare in points scored/number of kills to OSU?
 
 ## Read in data and perform necessary wrangling and cleaning
 Describe your data sources (where they come from, what was their original purpose, who/what comprise the cases in each).
@@ -691,17 +724,4 @@ Describe what attributes you'll focus your analysis on (mention if they are part
 
 
 
-## Conduct Exploratory Data Analysis
-
-
-
-
-All outputs should be accompanied by narrative text to explain what the reader should be seeing.
-
-Create multiple data visualizations that assist both the team and readers in understanding the data.
-Data visualizations should show a variety of your skills and geometries.
-
-Create at least one visual table (not a display of raw data) that assists both the team and readers in understanding the data.
-
-Have narrative text explaining every data visualization and table as well as setting a framework.
 
