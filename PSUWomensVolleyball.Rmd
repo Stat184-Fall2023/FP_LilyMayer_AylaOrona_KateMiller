@@ -139,7 +139,6 @@ psuRosterOffensiveStats <- bind_cols(psuRosterStats[[2]][2:nrow(psuRosterStats[[
 #saves the rest of the player data as a dataframe
 
 
-View(psuRosterOffensiveStats)
 colnames(psuRosterOffensiveStats) <- c(psuRosterOffensiveHeading[1, ])
 #inserts column headers into player data
 
@@ -300,7 +299,6 @@ psuJoin <- psuOffensive %>%
   
 psuAndOsu <- rbind(psuJoin, osuJoin)
 #vertically joins the psu and osu data together
-View(psuAndOsu)
 ```
 
 # Conducting Exploratory Data Analysis
