@@ -25,7 +25,7 @@ How does Penn State compare to Ohio State in: total attacks per set versus kills
 
 ### Data Origin and Data Wrangling Process
   
-We gathered our data online from the PSU Women's volleyball team rosters. We used a general 2023 team roster that contained each players position, height, number, school year, along with a stats roster of each players stats for the 2023 season. The stats roster that we used did not have the position of each player, so in order to create a useful data table we merged the general team roster with the stats roster. This created a table so each player was represented with their name, number, position, school year, and the rest of their volleyball 2023 stats. With this table we could then group it how we needed based on each research question to create visualizations and summary tables.  
+We gathered our data online from the PSU Women's volleyball team rosters. We used a general 2023 team roster that contained each players position, height, number, school year, along with a stats roster of each players stats for the 2023 season. The stats roster that we used did not have the position of each player, so in order to create a useful data table we merged the general team roster with the stats roster. This created a table so each player was represented with their name, number, position, school year, and the rest of their volleyball 2023 stats. With this table we could then group it how we needed based on each research question to create visualizations and summary tables. An important thing to note is that our dataset changes almost every day because the volleyball team's season is ongoing with the playoff championship still in progress. We created our visualizations and analyzed those data before some more raw data was added to the dataset, so our analyses and interpretations may be slightly off from the current output since we did write our work in the past.  
 
 The roster data's original purpose was to provide a women's volleyball roster to online viewers with generic information about the player's year and position. The statistics data's purpose was to provide an online viewer with information a player's talents on the court in the areas of kills, errors, aces, etc. We are using the data to delve deeper into the relationships between some of these variables.  
 
@@ -377,7 +377,6 @@ setsSummaryTable2 %>%
   # This section utilizes the kableExtra package to create a clear summary
   # table for the viewer to look at.
 
-View(setsSummaryTable2)
 fig.align = "left"
  
 ```
@@ -460,7 +459,6 @@ PosErrorsSummaryTable2 %>%
   # This section utilizes the kableExtra package to create a clear summary
   # table for the viewer to look at.
 fig.align = "left"
-View(PosErrorsSummaryTable2)
 ```
 A player constitutes a case. From this visualization, we can see that position does play a part in who makes the most errors. The Defensive Specialist (DS) and Libero (L) positions don't have any errors, and the setters (S) have minimal errors, with the maximum being 17. The Outside Hitter (OH), often the one spiking the ball and attempting to win the point, have the most errors and the highest mean number of errors. Right Side (RS) players and Middle Blockers (MB) also have many errors, since they are also right at the net. The players who are not at the net, such as DS and L, are going to have less errors since they are not trying to win the point, merely keep the ball in play. 
   
@@ -513,7 +511,6 @@ statsSummaryTable2 %>%
   # This section utilizes the kableExtra package to create a clear summary
   # table for the viewer to look at.
 fig.align = "left"
-View(statsSummaryTable2)
 
 ```
 A player constitutes a case. From the visualization above, one can gather that the number of points depends on where the player is on the court, which depends on their position. For example, while there's only two players who have middle blocker (MB) listed on their position, they have scored the highest average number of points. However, the individual who has the most number of points belongs to the outside hitter (OH), with a maximum of 567.5 points scored. The right side (RS) players also have a relatively high average of points scored, making the three positions with the highest average scores to be the MB, OH, and RS positions. We can see that the Liberos (L) and Defensive Specialist (DS) positions, as well as the setter (S) often don't score. Liberos and Defensive Specialists are often in the rear of the court, which is why they do not score points as much as the right side, outside hitter, and middle blocker, since those are the positions right at the net, where the ball is often spiked. This is depicted in the summary table. 
@@ -694,7 +691,6 @@ errorsSummaryTable2 %>%
   # This section utilizes the kableExtra package to create a clear summary
   # table for the viewer to look at.
 fig.align = "left"
-View(errorsSummaryTable2)
 ```
 A player constitutes a case. The summary table displayed above aids the viewer in seeing the numerical values associated with the errors data visualization (scatter plot) from before. Penn State's player with the maximum number of errors had 178 errors, where Ohio State's player with the maximum number of errors had 107. Furthermore, Penn State had a higher arithmetic mean of errors, showing that on average, they had a higher number of errors than Ohio State did. The data for OSU is only for 12 individuals, whereas the data for PSU is for 17, as also described in the scatter plot. This is how Penn State came to have a median of 1, since many players do not play and therefore have 0 errors.
 
