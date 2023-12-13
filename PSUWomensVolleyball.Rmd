@@ -310,7 +310,7 @@ View(psuAndOsu)
 #Hide the code until the appendix 
 ggplot(psuOffensiveRoster) + #Plot based on the PSU offensive roster
   aes(x = `Height (in.)`, y = PTS) + 
-  geom_point(shape = "circle", size = 1.8, colour = "#005BAC") +
+  geom_point(shape = "circle", size = 1.8, colour = "#005BAC") + #Every PSU player is represented by a blue circle on the graph
   labs(
     x = "Height (in.)",
     y = "Points",
