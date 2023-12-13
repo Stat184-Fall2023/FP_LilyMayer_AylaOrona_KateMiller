@@ -10,29 +10,27 @@ The following document aims to provide details on Penn State Women's Volleyball 
 
 ### The General Rules of Collegiate Volleyball
 
-Volleyball is a game that consists of two teams each with six players hitting a ball over a net to score points. Each play starts by a setter on one team hitting the ball over the net. After the ball is served, each team is allowed to touch the ball three times before the ball must go over the net, however a single player may not hit the ball two times in a row. Throughout the game, when the ball hits the ground of an opposing teams side, points are given to the team that last hit the ball. Based on whichever team scored the point, they receive the ball to serve the next play.  
+Volleyball is a game that consists of two teams each with six players hitting a ball over a net to score points. Each play starts by a setter on one team hitting the ball over the net. After the ball is served, each team is allowed to touch the ball three times before the ball must go over the net, however, a single player may not hit the ball two times in a row. Throughout the game, when the ball hits the ground of an opposing teams side, points are given to the team that last hit the ball. Based on whichever team scored the point, they receive the ball to serve the next play.  
 
 Each game consists of five sets. In order to win a set a team must score 25 points. One score is equal to one point. To win the whole game a team must win three out of the five sets.  
 
 ### Research Questions
 
 What is the connection between amount of points a player scores versus their height?  
-What are the average stats for each position?  
+What are the average points made for each position?  
+What are the average errors made for each position?  
+What is the relationship between a players height and their position?  
 What is the average number of sets played based on college year?  
-How does PSU compare to OSU in total kills per set versus the total attacks per set per player?  
+How does Penn State compare to Ohio State in: total attacks per set versus kills per set, kills per set versus aces per set, and total errors per player?  
 
-### Data Orgin and Data Wrangling Process
+### Data Origin and Data Wrangling Process
+  
+We gathered our data online from the PSU Women's volleyball rosters. We used a general 2023 team roster that contained each players position, height, number, school year, along with a stats roster of each players stats for the 2023 season. The stats roster that we used did not have the position of each player, so in order to create a useful data table we merged the general team roster with the stats roster. This created a table so each player was represented with their name, number, position, school year, and the rest of their volleyball 2023 stats. With this table we could then group it how we needed based on each research question to create visualizations and summary tables.  
 
-Describe your data sources (where they come from, what was their original purpose, who/what comprise the cases in each).
-Notes:
-- PSU V. Ohio State Portion: We gathered both the Penn state's and Ohio State's women volleyball team stats. We googled each roster of both teams and merged them together. The PSU stat table did not have the position of each player, so to match each player with their position, we joined a PSU Roster that contained players and their position with the PSU Stat table. We then compared Penn state and Ohio State's stats.
+For Ohio States Women's Volleyball team we also gathered data a similar way. We gathered their Women's volleyball stats from their OSU 2023 Womens's volleyball roster. In order to create visualizations and tables to directly compare PSU and OSU, both tables needed to be joined together. Once the tables were joined, direct comparisons between PSU and OSU could be conducted.
 
-- Only PSU Portion: We used the internet to find the roster and stats of Penn State's Women's Volleyball team. Since the PSU stat roster did not have the position of each player, we merged the stats table with the team roster containing the player positions. We then compared data within the PSU team.
-
-Describe what attributes you'll focus your analysis on (mention if they are part of your data sets or if you created them out of your data sets).
 
 ### Volleyball Terms Used in This Document  
-
 
 The following column headings were collected from the Penn State Women's Volleyball website and may be used in the data frames, tables, and visualizations. Each are based on individual volleyball players.
 
@@ -67,6 +65,7 @@ Some players have more than one position. In these cases, the player's data will
 
 
 ### Table of Contents for Visualizations and Tables
+
 Figure 1 - Total Points Versus Player Height (PSU)  
 Table 1 - Summary Statistics of Average Sets Played Per Grade (PSU)  
 Figure 2 - Average Sets Played Per Grade (PSU)  
@@ -324,10 +323,9 @@ ggplot(psuOffensiveRoster) + #Plot based on the PSU offensive roster
   )
 fig.align = "left"
 ```
-
-  
-  
 The visualization shown above is the comparison of each players height versus their total amount of points for this season. As seen in the graph, the player that has scored the most amount of points this season is 73 in. (6'2 ft) with points ranging in the 500s. The players with the most amount of points range from 73 in (6'2 ft) to 75 in (6'4 ft). We can also see on the graph that the most popular height of the team is 74 in. because they have the most amount of data points on 74in line.
+  
+  
   
 #### Table 1
 ```{r averageSetsPlayedPerSchoolYearDataTable}
@@ -705,23 +703,9 @@ View(errorsSummaryTable2)
 The summary table displayed above aids the viewer in seeing the numerical values associated with the errors data visualization (scatter plot) from before. Penn State's player with the maximum number of errors had 178 errors, where Ohio State's player with the maximum number of errors had 107. Furthermore, Penn State had a higher arithmetic mean of errors, showing that on average, they had a higher number of errors than Ohio State did. The data for OSU is only for 12 individuals, whereas the data for PSU is for 17, as also described in the scatter plot. This is how Penn State came to have a median of 1, since many players do not play and therefore have 0 errors.
 
 
+
 ## Code Appendix
 ``` {r codeAppendix,ref.label = knitr::all_labels(), echo = TRUE, eval = FALSE}
 ```
 #This is the code chunk for the code appendix so viewers can view all the code 
 #at the end of the RMD file
-
-
-## Read in data and perform necessary wrangling and cleaning
-Describe your data sources (where they come from, what was their original purpose, who/what comprise the cases in each).
-Notes:
-- PSU V. Ohio State Portion: We gathered both the Penn state's and Ohio State's women volleyball team stats. We googled each roster of both teams and merged them together. The PSU stat table did not have the position of each player, so to match each player with their position, we joined a PSU Roster that contained players and their position with the PSU Stat table. We then compared Penn state and Ohio State's stats.
-
-- Only PSU Portion: We used the internet to find the roster and stats of Penn State's Women's Volleyball team. Since the PSU stat roster did not have the position of each player, we merged the stats table with the team roster containing the player positions. We then compared data within the PSU team.
-
-Describe what attributes you'll focus your analysis on (mention if they are part of your data sets or if you created them out of your data sets).
-
-
-
-
-
