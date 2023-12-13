@@ -29,7 +29,7 @@ We gathered our data online from the PSU Women's volleyball team rosters. We use
 
 The roster data's original purpose was to provide a women's volleyball roster to online viewers with generic information about the player's year and position. The statistics data's purpose was to provide an online viewer with information a player's talents on the court in the areas of kills, errors, aces, etc. We are using the data to delve deeper into the relationships between some of these variables.  
 
-For Ohio States Women's Volleyball team we also gathered data a similar way. We gathered their Women's volleyball stats from their OSU 2023 Womens's volleyball roster. In order to create visualizations and tables to directly compare PSU and OSU, both tables needed to be joined together. Once the tables were joined, direct comparisons between PSU and OSU could be conducted.  
+For Ohio States Women's Volleyball team, we also gathered data a similar way. We gathered their Women's volleyball stats from their OSU 2023 Womens's volleyball roster. In order to create visualizations and tables to directly compare PSU and OSU, both tables needed to be joined together. Once the tables were joined, direct comparisons between PSU and OSU could be conducted.  
 
 For the total attacks per set (TA/S) visualizations, we had to make the TA/S variable by dividing the value of the TA (total attack) variable and the sets played variable for each player. We also added the "school" variable in for each player to help us when comparing volleyball stats from OSU and PSU.  
 
@@ -700,6 +700,7 @@ A player constitutes a case. The summary table displayed above aids the viewer i
 
 # Conclusion
 
+In total, Penn State Women's Volleyball had 2,086.5 points. From the Ohio State Women's Volleyball data, we gathered that they had 876.5 points total this season. From both data sets, we were able to compare numerous variables to help draw conclusions about collegiate women's volleyball, specifically about OSU and PSU. We learned about the correlation between position and height, kills per set and attacks per set, and numerous other relationships from the scraped data. Utilizing our skills in R, we were able to create data visualizations that aided in our and the user's understanding of the women's volleyball data.
 
 
 # Code Appendix
